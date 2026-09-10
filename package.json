@@ -1,0 +1,10 @@
+{
+  "name": "lernwerk-ki-halluzinationen",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interaktive Lernsequenz zu Halluzinationen und Bias bei KI, mit KI-Chat (Feedback-Coach + Uebungspartner) ueber Infomaniak AI Tools.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}
