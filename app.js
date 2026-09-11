@@ -324,3 +324,96 @@ const k1Items = [
     }
 
     if(document.getElementById('m2k1Quiz')){ m2renderK1(); m2loadSaved(); m2attachChats(); }
+
+    /* ================= KAPITEL 1 LOGIK ================= */
+    const c1k1Items = [
+      ['Der Oberbegriff für Systeme, die Aufgaben lösen, für die man sonst menschliche Intelligenz braucht.', 'KI', 'Künstliche Intelligenz ist der weiteste Begriff und umfasst die anderen.'],
+      ['Ein Teilbereich, bei dem Systeme aus Daten Muster lernen, statt fest programmiert zu werden.', 'ML', 'Machine Learning ist der lernende Teilbereich der KI.'],
+      ['Eine Anwendung, die neue Inhalte wie Texte, Bilder oder Töne erzeugt.', 'GEN', 'Generative KI erzeugt neue Inhalte.'],
+      ['Ein bestimmtes generatives Modell, das auf Sprache spezialisiert ist.', 'LLM', 'Ein Large Language Model ist ein Sprachmodell und damit ein Spezialfall generativer KI.'],
+      ['Ein E-Mail-Programm, das nach festen, von Menschen programmierten Regeln Nachrichten sortiert – ganz ohne Lernen aus Daten.', 'KI', 'Regelbasierte Automatisierung zählt allenfalls zur klassischen KI, ist aber kein Machine Learning, da nichts aus Daten gelernt wird.'],
+      ['Ein System, das aus vielen Beispielbildern gelernt hat, Katzen von Hunden zu unterscheiden.', 'ML', 'Aus Daten gelernte Unterscheidung ist typisches Machine Learning, aber nicht generativ.']
+    ];
+    const C1TOTAL = 6;
+    const c1sectionOf = { c1k1:'c1k1', c1k2:'c1k2', c1k3:'c1k3', c1k4:'c1k4', c1k5:'c1k5', c1k6:'c1k6' };
+    const c1completed = new Set();
+    const c1choices = [['KI','KI'],['ML','ML'],['GEN','GEN'],['LLM','LLM']];
+
+    function c1renderK1() { const target = document.getElementById('c1k1Quiz'); if(!target || target.querySelector('fieldset')) return; target.innerHTML = c1k1Items.map((item, i) => `<fieldset style="border:0;padding:0;margin:0"><legend><strong>${i+1}.</strong> ${item[0]}</legend><div class="choices" style="grid-template-columns:repeat(4,minmax(0,1fr));margin:7px 0 13px">${c1choices.map(o => `<label class="choice"><input type="radio" name="c1k1_${i}" value="${o[0]}"> ${o[1]}</label>`).join('')}</div></fieldset>`).join(''); }
+
+    function c1markNav(key){ const a=document.querySelector('.nav a[href="#'+key+'"]'); if(a) a.classList.add('nav-done'); const sec=document.getElementById(key); if(sec){ sec.classList.add('is-done'); const b=sec.querySelector('.badge'); if(b) b.classList.add('badge-done'); } }
+
+    function c1setDone(key) {
+      const wasNew = !c1completed.has(key);
+      c1completed.add(key);
+      const count = c1completed.size;
+      document.getElementById('c1done').textContent = count;
+      document.getElementById('c1total').textContent = C1TOTAL;
+      document.getElementById('c1progressBar').style.width = (count / C1TOTAL * 100) + '%';
+      if(c1sectionOf[key]) c1markNav(c1sectionOf[key]);
+      if(wasNew && count < C1TOTAL) toast('Kapitel 1: Fortschritt gespeichert · ' + count + ' von ' + C1TOTAL);
+      if(count >= C1TOTAL){ toast('🎉 Kapitel 1 vollständig bearbeitet!'); const fin=document.getElementById('c1final'); if(fin) fin.classList.add('celebrate'); }
+      try{ localStorage.setItem('c1completedSet', JSON.stringify([...c1completed])); }catch(e){}
+    }
+
+    function c1checkK1() { let score = 0; let details = []; c1k1Items.forEach((item, i) => { const chosen = document.querySelector(`input[name="c1k1_${i}"]:checked`); document.querySelectorAll(`input[name="c1k1_${i}"]`).forEach(r=>{ const lab=r.closest('.choice'); if(!lab) return; lab.classList.remove('correct','incorrect'); if(r.checked){ lab.classList.add(r.value===item[1]?'correct':'incorrect'); } if(r.value===item[1] && chosen && chosen.value!==item[1]){ lab.classList.add('correct'); } }); if (chosen && chosen.value === item[1]) score++; else details.push(`${i+1}: ${item[1]} – ${item[2]}`); }); const type = score === c1k1Items.length ? 'good' : score >= 4 ? 'warn' : 'bad'; showFeedback('c1k1Feedback', `<strong>${score} von ${c1k1Items.length} richtig.</strong>${details.length ? '<br><br><strong>Rückmeldung:</strong><br>' + details.join('<br>') : '<br>Sehr gut: Sie ordnen KI, ML, generative KI und LLM sicher zu.'}`, type); c1setDone('c1k1'); }
+
+    function c1saveText(inputId, feedbackId, doneKey) { const val = document.getElementById(inputId).value.trim(); if (!val) return showFeedback(feedbackId, 'Bitte schreiben Sie zuerst einen Entwurf.', 'warn'); localStorage.setItem(inputId, val); showFeedback(feedbackId, 'Ihr Entwurf wurde in diesem Browser gespeichert. Prüfen Sie: Wird das Ineinanderliegen der Begriffe (LLM ⊂ generative KI ⊂ ML ⊂ KI) deutlich?', 'good'); c1setDone(doneKey); }
+    function c1saveTwo(id1,id2,feedbackId,doneKey) { const a=document.getElementById(id1).value.trim(), b=document.getElementById(id2).value.trim(); if(!a || !b) return showFeedback(feedbackId,'Bitte füllen Sie beide Felder aus.','warn'); localStorage.setItem(id1,a); localStorage.setItem(id2,b); showFeedback(feedbackId,'Gespeichert. Gute Einsatzfelder sind meist Sprach- und Entwurfsaufgaben, die sich anschliessend leicht prüfen lassen.','good'); c1setDone(doneKey); }
+    function c1saveThree(id1,id2,id3,feedbackId,doneKey) { const vals=[id1,id2,id3].map(id=>document.getElementById(id).value.trim()); if(vals.some(v=>!v)) return showFeedback(feedbackId,'Bitte füllen Sie alle drei Felder aus.','warn'); [id1,id2,id3].forEach(id=>localStorage.setItem(id,document.getElementById(id).value)); showFeedback(feedbackId,'Analyse gespeichert. Kernidee: Sprache und Entwürfe sind Stärke; verbindliche, aktuelle Fakten sind Grenze.','good'); c1setDone(doneKey); }
+    function c1checkK5() { const choice=document.querySelector('input[name="c1fit"]:checked'); const reason=document.getElementById('c1k5Reason').value.trim(); if(!choice || !reason) return showFeedback('c1k5Feedback','Bitte wählen Sie eine Option und begründen Sie sie.','warn'); localStorage.setItem('c1k5Reason',reason); const correct=choice.value==='a'; const message=correct ? '<strong>Überzeugende Wahl: der geprüfte Terminabsage-Entwurf.</strong> Sprache formulieren ist die Stärke der KI, und das Ergebnis lässt sich leicht prüfen und verantworten. Verbindliche Berechnungen und rechtliche Entscheide gehören nicht allein in die Hand eines Sprachmodells.' : '<strong>Überdenken Sie die Wahl.</strong> Ein verbindlicher Feriensaldo und ein rechtsverbindlicher Entscheid verlangen exakte, überprüfte Grundlagen bzw. juristische Verantwortung – dafür ist ein Sprachmodell allein nicht geeignet. Am ehesten vertretbar ist der geprüfte Textentwurf.'; showFeedback('c1k5Feedback',message,correct?'good':'warn'); c1setDone('c1k5'); }
+    function c1saveK6() { const ids=['c1k6Good','c1k6Bad','c1k6Question','c1k6Check','c1k6Who','c1k6Steps']; const filled=ids.filter(id=>document.getElementById(id).value.trim()).length; ids.forEach(id=>localStorage.setItem(id,document.getElementById(id).value)); showFeedback('c1k6Feedback', filled===6 ? 'Ihre Entscheidungshilfe wurde gespeichert. Prüfen Sie abschliessend, ob geeignete und ungeeignete Aufgaben, Leitfrage, Prüfung und Verantwortung klar geregelt sind.' : `Sie haben ${filled} von 6 Bausteinen ausgefüllt. Eine tragfähige Entscheidungshilfe braucht alle sechs.`,filled===6?'good':'warn'); if(filled===6) c1setDone('c1k6'); }
+
+    function c1loadSaved() {
+      try{ const saved=JSON.parse(localStorage.getItem('c1completedSet')||'[]'); saved.forEach(k=>{ c1completed.add(k); if(c1sectionOf[k]) c1markNav(c1sectionOf[k]); }); const c=c1completed.size; document.getElementById('c1done').textContent=c; document.getElementById('c1total').textContent=C1TOTAL; document.getElementById('c1progressBar').style.width=(c/C1TOTAL*100)+'%'; if(c>=C1TOTAL){ const fin=document.getElementById('c1final'); if(fin) fin.classList.add('celebrate'); } }catch(e){}
+    }
+
+    const c1chatContext = {
+      c1k1: () => { const picks = c1k1Items.map((it,i)=>{ const c=document.querySelector(`input[name="c1k1_${i}"]:checked`); return `${i+1}) ${c?c.value:'—'}`; }).join(', '); return 'Kapitel 1, Aufgabe K1 (Begriffe KI/ML/GEN/LLM zuordnen). Auswahl: '+picks; },
+      c1k2: () => 'Kapitel 1, Aufgabe K2 (Zusammenhang der Begriffe erklären). Antwort:\n'+(document.getElementById('c1k2Text').value||'(leer)'),
+      c1k3: () => 'Kapitel 1, Aufgabe K3 (Einsatzfelder).\nGeeignet:\n'+(document.getElementById('c1k3Fit').value||'(leer)')+'\nGemeinsames Merkmal:\n'+(document.getElementById('c1k3Why').value||'(leer)'),
+      c1k4: () => 'Kapitel 1, Aufgabe K4 (Stärken/Grenzen).\nStärke:\n'+(document.getElementById('c1k4Strength').value||'(leer)')+'\nGrenze:\n'+(document.getElementById('c1k4Limit').value||'(leer)')+'\nRegel:\n'+(document.getElementById('c1k4Rule').value||'(leer)'),
+      c1k5: () => { const c=document.querySelector('input[name="c1fit"]:checked'); return 'Kapitel 1, Aufgabe K5 (Eignung entscheiden). Wahl: '+(c?c.value:'(keine)')+'\nBegründung:\n'+(document.getElementById('c1k5Reason').value||'(leer)'); },
+      c1k6: () => { const ids=['c1k6Good','c1k6Bad','c1k6Question','c1k6Check','c1k6Who','c1k6Steps']; return 'Kapitel 1, Aufgabe K6 (Entscheidungshilfe):\n'+ids.map(id=>id+': '+(document.getElementById(id).value||'(leer)')).join('\n'); }
+    };
+
+    function c1attachChats(){
+      ['c1k1','c1k2','c1k3','c1k4','c1k5','c1k6'].forEach(key=>{
+        const sec = document.getElementById(key);
+        if(!sec) return;
+        const card = sec.querySelector('.card') || sec.querySelector('.grid-2');
+        if(!card) return;
+        const btn = document.createElement('button');
+        btn.type='button'; btn.className='secondary chat-toggle'; btn.textContent='KI-Assistent öffnen';
+        const chat = buildChat(key, c1chatContext);
+        btn.addEventListener('click', ()=>{ const show = chat.style.display==='none'; chat.style.display = show?'block':'none'; btn.textContent = show?'KI-Assistent schliessen':'KI-Assistent öffnen'; });
+        card.appendChild(btn);
+        card.appendChild(chat);
+      });
+    }
+
+    function c1downloadAnswersPDF(){
+      const g = id => document.getElementById(id) ? document.getElementById(id).value : '';
+      const fit = document.querySelector('input[name="c1fit"]:checked');
+      const fitLabels = {a:'Geprüfter Terminabsage-Entwurf', b:'Verbindlicher Feriensaldo ohne Prüfung', c:'Rechtsverbindlicher Kündigungsentscheid'};
+      const c1collectK1 = () => c1k1Items.map((item,i)=>{ const c=document.querySelector(`input[name="c1k1_${i}"]:checked`); const val=c?c.value:null; const ok=val===item[1]; const mark=val?(ok?'✓ richtig':'✗ erwartet: '+item[1]):'— keine Auswahl'; return `<li><span class="q">${i+1}. ${esc(item[0])}</span><br><span class="ans">Ihre Antwort: <strong>${val||'—'}</strong> &nbsp;<em>(${mark})</em></span></li>`; }).join('');
+      const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Lernwerk GmbH – Kapitel 1 – Meine Antworten</title>
+      <style>@page{margin:18mm 16mm}body{font-family:Georgia,serif;color:#172633;line-height:1.5;font-size:11.5pt}h1{font-size:20pt;margin:0 0 4px;color:#1d2c3c}h2{font-size:13.5pt;color:#8e3900;border-bottom:2px solid #b94b02;padding-bottom:3px;margin:22px 0 10px;page-break-after:avoid}.meta{color:#5a6875;font-size:10pt;margin-bottom:18px}.block{margin:0 0 12px;page-break-inside:avoid}.label{font-weight:bold;font-size:10.5pt;color:#2b4057;margin-top:8px}.val{margin:2px 0 8px;padding:8px 10px;background:#f4f6f8;border-left:3px solid #d5dce2;border-radius:0 6px 6px 0}.empty{color:#9aa6b1;font-style:italic}ul.k1{list-style:none;padding:0;margin:0}ul.k1 li{margin:0 0 10px;padding-bottom:8px;border-bottom:1px dotted #d5dce2}.decision{padding:8px 10px;background:#fff0e6;border-left:3px solid #b94b02;border-radius:0 6px 6px 0;font-weight:bold}footer{margin-top:26px;font-size:9pt;color:#5a6875;border-top:1px solid #d5dce2;padding-top:8px}</style></head><body>
+      <h1>Grundlagen: KI, ML, generative KI und LLM</h1>
+      <div class="meta">Lernwerk GmbH · Kapitel 1 · Meine Antworten · ${new Date().toLocaleDateString('de-CH',{year:'numeric',month:'long',day:'numeric'})}</div>
+      <h2>K1 · Wissen: Begriffe zuordnen</h2><ul class="k1">${c1collectK1()}</ul>
+      <h2>K2 · Verstehen: Zusammenhang erklären</h2><div class="block"><div class="val">${answered(g('c1k2Text'))}</div></div>
+      <h2>K3 · Anwenden: Einsatzfelder</h2><div class="block"><div class="label">Geeignete Aufgaben</div><div class="val">${answered(g('c1k3Fit'))}</div><div class="label">Gemeinsames Merkmal</div><div class="val">${answered(g('c1k3Why'))}</div></div>
+      <h2>K4 · Analysieren: Stärken und Grenzen</h2><div class="block"><div class="label">Stärke</div><div class="val">${answered(g('c1k4Strength'))}</div><div class="label">Grenze</div><div class="val">${answered(g('c1k4Limit'))}</div><div class="label">Abgeleitete Regel</div><div class="val">${answered(g('c1k4Rule'))}</div></div>
+      <h2>K5 · Evaluieren: Eignung entscheiden</h2><div class="block"><div class="decision">Wahl: ${fit ? fitLabels[fit.value] : '<span class="empty">— nicht gewählt —</span>'}</div><div class="label">Begründung</div><div class="val">${answered(g('c1k5Reason'))}</div></div>
+      <h2>K6 · Erstellen: Entscheidungshilfe</h2><div class="block"><div class="label">1. Geeignete Aufgaben</div><div class="val">${answered(g('c1k6Good'))}</div><div class="label">2. Ungeeignete Aufgaben</div><div class="val">${answered(g('c1k6Bad'))}</div><div class="label">3. Leitfrage</div><div class="val">${answered(g('c1k6Question'))}</div><div class="label">4. Prüfung des Ergebnisses</div><div class="val">${answered(g('c1k6Check'))}</div><div class="label">5. Verantwortung</div><div class="val">${answered(g('c1k6Who'))}</div><div class="label">6. Kurz-Checkliste</div><div class="val">${answered(g('c1k6Steps'))}</div></div>
+      <h2>Abschlussreflexion</h2><div class="block"><div class="val">${answered(g('c1reflection'))}</div></div>
+      <footer>Interaktive Lernsequenz · Lernwerk GmbH · Kapitel 1: Grundlagen KI</footer>
+      <script>window.onload=function(){window.print();}<\/script></body></html>`;
+      const w = window.open('', '_blank');
+      if(!w){ alert('Bitte Pop-ups für diese Seite erlauben, damit das PDF erstellt werden kann.'); return; }
+      w.document.open(); w.document.write(html); w.document.close();
+    }
+
+    if(document.getElementById('c1k1Quiz')){ c1renderK1(); c1loadSaved(); c1attachChats(); }
+
