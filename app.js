@@ -417,3 +417,94 @@ const k1Items = [
 
     if(document.getElementById('c1k1Quiz')){ c1renderK1(); c1loadSaved(); c1attachChats(); }
 
+    /* ================= KAPITEL 4 LOGIK ================= */
+    const c4k1Items = [
+      ['Ein regelbasiertes System folgt festen, von Menschen vorgegebenen Regeln.', 'R', 'Genau: feste Wenn-dann-Regeln, nachvollziehbar und zuverlässig.'],
+      ['Ein lernendes System erkennt Muster aus Daten und kann mit neuen, ähnlichen Fällen umgehen.', 'R', 'Das ist der Kern maschinellen Lernens.'],
+      ['Ein überzeugend formulierter LLM-Output ist deshalb auch inhaltlich richtig und für die Aufgabe geeignet.', 'F', 'Form ist kein Beleg für Richtigkeit oder Eignung.'],
+      ['Ein LLM ist für exakte, verbindliche Berechnungen das am besten geeignete Werkzeug.', 'F', 'Für exakte Berechnungen sind Tabellen/Rechner geeigneter; ein LLM kann rechnerisch irren.'],
+      ['Bei folgenreichen, personenbezogenen Entscheidungen sollte die letzte Verantwortung bei einem Menschen bleiben.', 'R', 'Menschliche Verantwortung und Kontrolle bleiben hier notwendig.'],
+      ['Regelbasierte und lernende Ansätze lassen sich sinnvoll kombinieren.', 'R', 'Viele gute Lösungen kombinieren beides.']
+    ];
+    const C4TOTAL = 6;
+    const c4sectionOf = { c4k1:'c4k1', c4k2:'c4k2', c4k3:'c4k3', c4k4:'c4k4', c4k5:'c4k5', c4k6:'c4k6' };
+    const c4completed = new Set();
+
+    function c4renderK1() { const target = document.getElementById('c4k1Quiz'); if(!target || target.querySelector('fieldset')) return; target.innerHTML = c4k1Items.map((item, i) => `<fieldset style="border:0;padding:0;margin:0"><legend><strong>${i+1}.</strong> ${item[0]}</legend><div class="choices" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:7px 0 13px">${[['R','richtig'],['F','falsch']].map(o => `<label class="choice"><input type="radio" name="c4k1_${i}" value="${o[0]}"> ${o[1]}</label>`).join('')}</div></fieldset>`).join(''); }
+
+    function c4markNav(key){ const a=document.querySelector('.nav a[href="#'+key+'"]'); if(a) a.classList.add('nav-done'); const sec=document.getElementById(key); if(sec){ sec.classList.add('is-done'); const b=sec.querySelector('.badge'); if(b) b.classList.add('badge-done'); } }
+
+    function c4setDone(key) {
+      const wasNew = !c4completed.has(key);
+      c4completed.add(key);
+      const count = c4completed.size;
+      document.getElementById('c4done').textContent = count;
+      document.getElementById('c4total').textContent = C4TOTAL;
+      document.getElementById('c4progressBar').style.width = (count / C4TOTAL * 100) + '%';
+      if(c4sectionOf[key]) c4markNav(c4sectionOf[key]);
+      if(wasNew && count < C4TOTAL) toast('Kapitel 4: Fortschritt gespeichert · ' + count + ' von ' + C4TOTAL);
+      if(count >= C4TOTAL){ toast('🎉 Kapitel 4 vollständig bearbeitet!'); const fin=document.getElementById('c4final'); if(fin) fin.classList.add('celebrate'); }
+      try{ localStorage.setItem('c4completedSet', JSON.stringify([...c4completed])); }catch(e){}
+    }
+
+    function c4checkK1() { let score = 0; let details = []; c4k1Items.forEach((item, i) => { const chosen = document.querySelector(`input[name="c4k1_${i}"]:checked`); document.querySelectorAll(`input[name="c4k1_${i}"]`).forEach(r=>{ const lab=r.closest('.choice'); if(!lab) return; lab.classList.remove('correct','incorrect'); if(r.checked){ lab.classList.add(r.value===item[1]?'correct':'incorrect'); } if(r.value===item[1] && chosen && chosen.value!==item[1]){ lab.classList.add('correct'); } }); if (chosen && chosen.value === item[1]) score++; else details.push(`${i+1}: ${item[1]==='R'?'richtig':'falsch'} – ${item[2]}`); }); const type = score === c4k1Items.length ? 'good' : score >= 4 ? 'warn' : 'bad'; showFeedback('c4k1Feedback', `<strong>${score} von ${c4k1Items.length} richtig.</strong>${details.length ? '<br><br><strong>Rückmeldung:</strong><br>' + details.join('<br>') : '<br>Sehr gut: Sie schätzen Systeme, Grenzen und Verantwortung sicher ein.'}`, type); c4setDone('c4k1'); }
+
+    function c4saveText(inputId, feedbackId, doneKey) { const val = document.getElementById(inputId).value.trim(); if (!val) return showFeedback(feedbackId, 'Bitte schreiben Sie zuerst einen Entwurf.', 'warn'); localStorage.setItem(inputId, val); showFeedback(feedbackId, 'Ihr Entwurf wurde in diesem Browser gespeichert. Prüfen Sie: Wird der Unterschied zwischen festen Regeln und aus Daten gelernten Mustern deutlich?', 'good'); c4setDone(doneKey); }
+    function c4saveTwo(id1,id2,feedbackId,doneKey) { const a=document.getElementById(id1).value.trim(), b=document.getElementById(id2).value.trim(); if(!a || !b) return showFeedback(feedbackId,'Bitte füllen Sie beide Felder aus.','warn'); localStorage.setItem(id1,a); localStorage.setItem(id2,b); showFeedback(feedbackId,'Gespeichert. Faustregel: exakte Berechnung → Tabelle/Rechner; feste Abläufe → regelbasiert; Sprache/Entwurf → LLM; oft ist die Kombination am stärksten.','good'); c4setDone(doneKey); }
+    function c4saveThree(id1,id2,id3,feedbackId,doneKey) { const vals=[id1,id2,id3].map(id=>document.getElementById(id).value.trim()); if(vals.some(v=>!v)) return showFeedback(feedbackId,'Bitte füllen Sie alle drei Felder aus.','warn'); [id1,id2,id3].forEach(id=>localStorage.setItem(id,document.getElementById(id).value)); showFeedback(feedbackId,'Analyse gespeichert. Kernidee: Eine überzeugende Form ersetzt keine Prüfung – besonders bei personenbezogenen Empfehlungen.','good'); c4setDone(doneKey); }
+    function c4checkK5() { const choice=document.querySelector('input[name="c4control"]:checked'); const reason=document.getElementById('c4k5Reason').value.trim(); if(!choice || !reason) return showFeedback('c4k5Feedback','Bitte wählen Sie eine Option und begründen Sie sie.','warn'); localStorage.setItem('c4k5Reason',reason); const correct=choice.value==='a'; const message=correct ? '<strong>Überzeugende Wahl: das Vorsortieren mit späterer Kontrolle.</strong> Hier unterstützt die KI, während ein Mensch prüfen kann und die Folgen gering sind. Personal- und rechtliche/medizinische Entscheide sind folgenreich und müssen in menschlicher Verantwortung bleiben.' : '<strong>Überdenken Sie die Wahl.</strong> Personalentscheide sowie rechtliche oder medizinische Auskünfte sind folgenreich und betreffen Menschen unmittelbar; sie dürfen nicht allein einem System überlassen werden. Vertretbar ist die unterstützende Vorsortierung mit menschlicher Kontrolle.'; showFeedback('c4k5Feedback',message,correct?'good':'warn'); c4setDone('c4k5'); }
+    function c4saveK6() { const ids=['c4k6Rule','c4k6Combo','c4k6Convince','c4k6Human','c4k6Who','c4k6Steps']; const filled=ids.filter(id=>document.getElementById(id).value.trim()).length; ids.forEach(id=>localStorage.setItem(id,document.getElementById(id).value)); showFeedback('c4k6Feedback', filled===6 ? 'Ihre Auswahlhilfe wurde gespeichert. Prüfen Sie abschliessend, ob Werkzeugwahl, Kombination, Umgang mit überzeugenden Outputs und menschliche Verantwortung klar geregelt sind.' : `Sie haben ${filled} von 6 Bausteinen ausgefüllt. Eine tragfähige Auswahlhilfe braucht alle sechs.`,filled===6?'good':'warn'); if(filled===6) c4setDone('c4k6'); }
+
+    function c4loadSaved() {
+      try{ const saved=JSON.parse(localStorage.getItem('c4completedSet')||'[]'); saved.forEach(k=>{ c4completed.add(k); if(c4sectionOf[k]) c4markNav(c4sectionOf[k]); }); const c=c4completed.size; document.getElementById('c4done').textContent=c; document.getElementById('c4total').textContent=C4TOTAL; document.getElementById('c4progressBar').style.width=(c/C4TOTAL*100)+'%'; if(c>=C4TOTAL){ const fin=document.getElementById('c4final'); if(fin) fin.classList.add('celebrate'); } }catch(e){}
+    }
+
+    const c4chatContext = {
+      c4k1: () => { const picks = c4k1Items.map((it,i)=>{ const c=document.querySelector(`input[name="c4k1_${i}"]:checked`); return `${i+1}) ${c?c.value:'—'}`; }).join(', '); return 'Kapitel 4, Aufgabe K1 (richtig/falsch zu Systemen, Grenzen, Verantwortung). Auswahl: '+picks; },
+      c4k2: () => 'Kapitel 4, Aufgabe K2 (regelbasiert vs. lernend erklären). Antwort:\n'+(document.getElementById('c4k2Text').value||'(leer)'),
+      c4k3: () => 'Kapitel 4, Aufgabe K3 (Werkzeugwahl).\nZuordnung:\n'+(document.getElementById('c4k3Match').value||'(leer)')+'\nKombination:\n'+(document.getElementById('c4k3Combo').value||'(leer)'),
+      c4k4: () => 'Kapitel 4, Aufgabe K4 (überzeugend ≠ geeignet).\nÜberzeugend/kein Beweis:\n'+(document.getElementById('c4k4Convince').value||'(leer)')+'\nRisiken:\n'+(document.getElementById('c4k4Risk').value||'(leer)')+'\nZu prüfen:\n'+(document.getElementById('c4k4Need').value||'(leer)'),
+      c4k5: () => { const c=document.querySelector('input[name="c4control"]:checked'); return 'Kapitel 4, Aufgabe K5 (menschliche Kontrolle). Wahl: '+(c?c.value:'(keine)')+'\nBegründung:\n'+(document.getElementById('c4k5Reason').value||'(leer)'); },
+      c4k6: () => { const ids=['c4k6Rule','c4k6Combo','c4k6Convince','c4k6Human','c4k6Who','c4k6Steps']; return 'Kapitel 4, Aufgabe K6 (Werkzeug-Auswahlhilfe):\n'+ids.map(id=>id+': '+(document.getElementById(id).value||'(leer)')).join('\n'); }
+    };
+
+    function c4attachChats(){
+      ['c4k1','c4k2','c4k3','c4k4','c4k5','c4k6'].forEach(key=>{
+        const sec = document.getElementById(key);
+        if(!sec) return;
+        const card = sec.querySelector('.card') || sec.querySelector('.grid-2');
+        if(!card) return;
+        const btn = document.createElement('button');
+        btn.type='button'; btn.className='secondary chat-toggle'; btn.textContent='KI-Assistent öffnen';
+        const chat = buildChat(key, c4chatContext);
+        btn.addEventListener('click', ()=>{ const show = chat.style.display==='none'; chat.style.display = show?'block':'none'; btn.textContent = show?'KI-Assistent schliessen':'KI-Assistent öffnen'; });
+        card.appendChild(btn);
+        card.appendChild(chat);
+      });
+    }
+
+    function c4downloadAnswersPDF(){
+      const g = id => document.getElementById(id) ? document.getElementById(id).value : '';
+      const ctrl = document.querySelector('input[name="c4control"]:checked');
+      const ctrlLabels = {a:'Vorsortieren mit späterer Kontrolle', b:'Endgültiger Personalentscheid durch KI', c:'Verbindliche Fachauskunft ohne Fachperson'};
+      const c4collectK1 = () => c4k1Items.map((item,i)=>{ const c=document.querySelector(`input[name="c4k1_${i}"]:checked`); const val=c?c.value:null; const ok=val===item[1]; const mark=val?(ok?'✓ richtig':'✗ erwartet: '+(item[1]==='R'?'richtig':'falsch')):'— keine Auswahl'; return `<li><span class="q">${i+1}. ${esc(item[0])}</span><br><span class="ans">Ihre Antwort: <strong>${val?(val==='R'?'richtig':'falsch'):'—'}</strong> &nbsp;<em>(${mark})</em></span></li>`; }).join('');
+      const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Lernwerk GmbH – Kapitel 4 – Meine Antworten</title>
+      <style>@page{margin:18mm 16mm}body{font-family:Georgia,serif;color:#172633;line-height:1.5;font-size:11.5pt}h1{font-size:20pt;margin:0 0 4px;color:#1d2c3c}h2{font-size:13.5pt;color:#8e3900;border-bottom:2px solid #b94b02;padding-bottom:3px;margin:22px 0 10px;page-break-after:avoid}.meta{color:#5a6875;font-size:10pt;margin-bottom:18px}.block{margin:0 0 12px;page-break-inside:avoid}.label{font-weight:bold;font-size:10.5pt;color:#2b4057;margin-top:8px}.val{margin:2px 0 8px;padding:8px 10px;background:#f4f6f8;border-left:3px solid #d5dce2;border-radius:0 6px 6px 0}.empty{color:#9aa6b1;font-style:italic}ul.k1{list-style:none;padding:0;margin:0}ul.k1 li{margin:0 0 10px;padding-bottom:8px;border-bottom:1px dotted #d5dce2}.decision{padding:8px 10px;background:#fff0e6;border-left:3px solid #b94b02;border-radius:0 6px 6px 0;font-weight:bold}footer{margin-top:26px;font-size:9pt;color:#5a6875;border-top:1px solid #d5dce2;padding-top:8px}</style></head><body>
+      <h1>Stärken, Grenzen und Verantwortung</h1>
+      <div class="meta">Lernwerk GmbH · Kapitel 4 · Meine Antworten · ${new Date().toLocaleDateString('de-CH',{year:'numeric',month:'long',day:'numeric'})}</div>
+      <h2>K1 · Wissen: richtig oder falsch</h2><ul class="k1">${c4collectK1()}</ul>
+      <h2>K2 · Verstehen: regelbasiert vs. lernend</h2><div class="block"><div class="val">${answered(g('c4k2Text'))}</div></div>
+      <h2>K3 · Anwenden: Werkzeugwahl</h2><div class="block"><div class="label">Zuordnung Aufgabe → Werkzeug</div><div class="val">${answered(g('c4k3Match'))}</div><div class="label">Sinnvolle Kombination</div><div class="val">${answered(g('c4k3Combo'))}</div></div>
+      <h2>K4 · Analysieren: überzeugend ≠ geeignet</h2><div class="block"><div class="label">Überzeugend, aber kein Beweis</div><div class="val">${answered(g('c4k4Convince'))}</div><div class="label">Risiken bei ungeprüftem Folgen</div><div class="val">${answered(g('c4k4Risk'))}</div><div class="label">Zu prüfen / ergänzen</div><div class="val">${answered(g('c4k4Need'))}</div></div>
+      <h2>K5 · Evaluieren: menschliche Kontrolle</h2><div class="block"><div class="decision">Wahl: ${ctrl ? ctrlLabels[ctrl.value] : '<span class="empty">— nicht gewählt —</span>'}</div><div class="label">Begründung</div><div class="val">${answered(g('c4k5Reason'))}</div></div>
+      <h2>K6 · Erstellen: Werkzeug-Auswahlhilfe</h2><div class="block"><div class="label">1. Werkzeugwahl</div><div class="val">${answered(g('c4k6Rule'))}</div><div class="label">2. Kombination</div><div class="val">${answered(g('c4k6Combo'))}</div><div class="label">3. Umgang mit überzeugenden Outputs</div><div class="val">${answered(g('c4k6Convince'))}</div><div class="label">4. Menschliche Letztverantwortung</div><div class="val">${answered(g('c4k6Human'))}</div><div class="label">5. Prüfung und Freigabe</div><div class="val">${answered(g('c4k6Who'))}</div><div class="label">6. Auswahl-Checkliste</div><div class="val">${answered(g('c4k6Steps'))}</div></div>
+      <h2>Abschlussreflexion</h2><div class="block"><div class="val">${answered(g('c4reflection'))}</div></div>
+      <footer>Interaktive Lernsequenz · Lernwerk GmbH · Kapitel 4: Stärken, Grenzen und Verantwortung</footer>
+      <script>window.onload=function(){window.print();}<\/script></body></html>`;
+      const w = window.open('', '_blank');
+      if(!w){ alert('Bitte Pop-ups für diese Seite erlauben, damit das PDF erstellt werden kann.'); return; }
+      w.document.open(); w.document.write(html); w.document.close();
+    }
+
+    if(document.getElementById('c4k1Quiz')){ c4renderK1(); c4loadSaved(); c4attachChats(); }
+

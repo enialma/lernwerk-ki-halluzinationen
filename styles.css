@@ -136,4 +136,5 @@
     .module-divider { height: 3px; background: var(--orange); max-width: 1080px; margin: 20px auto 0; border-radius: 999px; }
     .hero-m2 { background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .40), transparent 27%), linear-gradient(125deg, #24384c, #33506c); margin-top: 0; }
     .hero-c1 { background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .40), transparent 27%), linear-gradient(125deg, var(--blue-dark), var(--blue)); margin-top: 0; }
+    .hero-c4 { background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .40), transparent 27%), linear-gradient(125deg, #2a2440, #3c3560); margin-top: 0; }
     @media print { .hero { padding: 25px; } button, .nav, .chat, .chat-toggle { display: none; } body { background: white; } .card { box-shadow: none; break-inside: avoid; } }
