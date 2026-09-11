@@ -6,7 +6,8 @@
   <title>Lernwerk GmbH · KI-Kurs</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .home-hero { color: white; background: radial-gradient(circle at 85% 18%, rgba(185,75,2,.42), transparent 30%), linear-gradient(125deg, var(--blue-dark), var(--blue)); padding: 60px 20px 54px; }
+    .home-hero-img { width: 100%; background: var(--blue-dark); line-height: 0; }
+    .hero-img { display: block; width: 100%; max-width: 1400px; height: auto; margin: 0 auto; }
     .toc { margin: 30px 0 20px; display: grid; gap: 16px; }
     .ch-card { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 24px; transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease; }
     .ch-card.active:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(43,64,87,.16); border-color: var(--orange); }
@@ -23,12 +24,8 @@
   </style>
 </head>
 <body>
-  <header class="home-hero">
-    <div class="wrap">
-      <p class="eyebrow" style="color:#f8d7be">Lernwerk GmbH · Interaktiver KI-Kurs</p>
-      <h1 style="font-size:clamp(2rem,4vw,3.4rem);margin:0;max-width:820px;line-height:1.1">KI verstehen, beurteilen und mit Daten arbeiten</h1>
-      <p class="lead" style="max-width:720px;margin:18px 0 0;color:#edf4f9">Ein praxisnaher Kurs für Jugendliche ab 15 und Erwachsene. Wählen Sie ein Kapitel, um zu starten. Ihre Eingaben werden im Browser gespeichert.</p>
-    </div>
+  <header class="home-hero-img">
+    <img src="hero.jpg" alt="Lernwerk GmbH – KI verstehen, beurteilen und mit Daten arbeiten. Ein praxisnaher Kurs für Jugendliche ab 15 und Erwachsene." class="hero-img">
   </header>
 
   <main class="wrap">
