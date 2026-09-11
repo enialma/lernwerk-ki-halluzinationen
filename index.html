@@ -140,6 +140,8 @@
     .chat-toggle { margin-top: 12px; }
     .chat-hint { padding: 8px 14px 12px; font-size: .82rem; color: var(--muted); }
     @media (max-width: 760px) { .hero-grid, .grid-2 { grid-template-columns: 1fr; } .hero { padding-top: 38px; } .msg { max-width: 92%; } }
+    .module-divider { height: 3px; background: var(--orange); max-width: 1080px; margin: 20px auto 0; border-radius: 999px; }
+    .hero-m2 { background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .40), transparent 27%), linear-gradient(125deg, #24384c, #33506c); margin-top: 0; }
     @media print { .hero { padding: 25px; } button, .nav, .chat, .chat-toggle { display: none; } body { background: white; } .card { box-shadow: none; break-inside: avoid; } }
   </style>
 </head>
@@ -188,6 +190,45 @@
     <section class="card final"><h2>Abschlussreflexion</h2><p>Beantworten Sie zum Schluss: <strong>Welche Qualitätsfrage möchten Sie künftig bei jeder relevanten KI-Antwort stellen?</strong></p><textarea id="reflection" placeholder="Meine persönliche Prüffrage …"></textarea><button type="button" onclick="saveText('reflection','reflectionFeedback')">Reflexion speichern</button><button type="button" onclick="downloadAnswersPDF()">Meine Antworten als PDF herunterladen</button><button type="button" class="secondary" onclick="window.print()">Arbeitsstand drucken / als PDF sichern</button><div id="reflectionFeedback" class="feedback" aria-live="polite"></div></section>
   </main>
   <footer>Interaktive Lernsequenz · Lernwerk GmbH · Thema: Halluzinationen und Bias bei LLMs</footer>
+  <!-- ================= MODUL 2 ================= -->
+  <div class="module-divider" id="modul2"></div>
+  <header class="hero hero-m2">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Lernwerk GmbH · Modul 2</p>
+        <h1>KI verstehen: Daten, Textgenerierung und Grenzen</h1>
+        <p class="lead">Nach diesem Modul können Sie erklären, was Trainingsdaten sind, wie ein Sprachmodell Text erzeugt, weshalb eine plausible Antwort trotzdem falsch sein kann und welche Rolle das Kontextfenster spielt.</p>
+      </div>
+      <aside class="progress-card" aria-label="Bearbeitungsfortschritt Modul 2">
+        <span class="small" style="color:#edf4f9">Bearbeitete Selbstchecks</span>
+        <strong><span id="m2done">0</span> / <span id="m2total">6</span></strong>
+        <div class="progress" aria-hidden="true"><span id="m2progressBar"></span></div>
+        <span class="small" style="color:#edf4f9">Ihre Eingaben bleiben in diesem Browser.</span>
+      </aside>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="notice"><strong>Das können Sie danach:</strong> Trainingsdaten und ihre Wirkung erklären · in Grundzügen beschreiben, wie ein Sprachmodell Text erzeugt · erklären, weshalb eine plausible KI-Antwort falsch sein kann · die Bedeutung des Kontextfensters für lange Dokumente und Gespräche beschreiben.</div>
+    <nav class="nav" aria-label="Kompetenzstufen Modul 2">
+      <a href="#m2k1">K1 Wissen</a><a href="#m2k2">K2 Verstehen</a><a href="#m2k3">K3 Anwenden</a><a href="#m2k4">K4 Analysieren</a><a href="#m2k5">K5 Evaluieren</a><a href="#m2k6">K6 Erstellen</a>
+    </nav>
+
+    <section id="m2k1"><div class="section-title"><span class="badge">K1</span><h2>Wissen: Grundbegriffe erkennen</h2></div><div class="card"><div class="task-meta"><span class="pill">Aufgabe 1</span><span class="pill">Selbstcheck</span></div><h3>Stimmt die Aussage?</h3><p>Entscheiden Sie bei jeder Aussage: <strong>R</strong> = richtig, <strong>F</strong> = falsch.</p><div id="m2k1Quiz" class="choices"></div><button type="button" onclick="m2checkK1()">Antworten prüfen</button><div id="m2k1Feedback" class="feedback" aria-live="polite"></div></div></section>
+
+    <section id="m2k2"><div class="section-title"><span class="badge">K2</span><h2>Verstehen: Textgenerierung erklären</h2></div><div class="card"><div class="task-meta"><span class="pill">Aufgabe 2</span><span class="pill">Eigene Erklärung</span></div><h3>Wie erzeugt ein Sprachmodell Text?</h3><p>Erklären Sie in zwei bis vier Sätzen und in eigenen Worten, wie ein Sprachmodell einen Satz erzeugt. Gehen Sie darauf ein, dass es Wort für Wort das jeweils wahrscheinlichste nächste Textstück vorhersagt.</p><textarea id="m2k2Text" placeholder="Meine Erklärung …"></textarea><button type="button" onclick="m2saveText('m2k2Text','m2k2Feedback','m2k2')">Entwurf speichern</button><button type="button" class="secondary" onclick="toggle('m2k2Hint')">Erwartungshorizont anzeigen</button><div id="m2k2Feedback" class="feedback" aria-live="polite"></div><div id="m2k2Hint" class="feedback warn"><strong>Erwartungshorizont:</strong> Ein Sprachmodell erzeugt Text nicht aus Verständnis, sondern indem es auf Basis der bisherigen Wörter das statistisch wahrscheinlichste nächste Wort (bzw. Token) vorhersagt und diesen Schritt fortlaufend wiederholt. Die Wahrscheinlichkeiten stammen aus Mustern in den Trainingsdaten. Deshalb entstehen flüssige, aber nicht zwingend wahre Aussagen.</div></div></section>
+
+    <section id="m2k3"><div class="section-title"><span class="badge">K3</span><h2>Anwenden: Trainingsdaten und ihre Wirkung</h2></div><div class="card"><div class="task-meta"><span class="pill">Aufgabe 3</span><span class="pill">Fall Lernwerk GmbH</span></div><div class="context"><strong>Ausgangslage:</strong> Die Lernwerk GmbH nutzt ein Sprachmodell für Texte zu regionalen Weiterbildungsangeboten und zu aktuellen gesetzlichen Vorgaben.</div><p>Trainingsdaten bestimmen, was ein Modell «kennt» und was nicht. Bearbeiten Sie beide Felder.</p><label for="m2k3Good">Für welche Aufgabe ist ein allgemein trainiertes Sprachmodell gut geeignet – und warum?</label><textarea id="m2k3Good" placeholder="Beispiel: Formulierungshilfe für einen Text, weil …"></textarea><label for="m2k3Bad">Bei welcher Aufgabe ist Vorsicht geboten, weil die Trainingsdaten dafür ungeeignet sein könnten?</label><textarea id="m2k3Bad" placeholder="Beispiel: tagesaktuelle oder lokale Angaben, weil …"></textarea><button type="button" onclick="m2saveTwo('m2k3Good','m2k3Bad','m2k3Feedback','m2k3')">Antwort speichern</button><div id="m2k3Feedback" class="feedback" aria-live="polite"></div></div></section>
+
+    <section id="m2k4"><div class="section-title"><span class="badge">K4</span><h2>Analysieren: Plausibel, aber falsch</h2></div><div class="card"><div class="task-meta"><span class="pill">Aufgabe 4</span><span class="pill">Fall Lernwerk GmbH</span></div><div class="context"><strong>Ausgangslage:</strong> Eine Mitarbeiterin lässt sich von der KI eine Quelle nennen.</div><blockquote>„Eine gute Grundlage ist die Studie <em>Weiterbildung Schweiz 2024</em> von Prof. Dr. M. Keller (Universität Luzern), erschienen im Verlag Berufsbildung, ISBN 978-3-905......  Sie zeigt, dass 84 Prozent der KMU KI-Weiterbildungen anbieten.“</blockquote><p>Die Antwort klingt überzeugend. Analysieren Sie, warum sie trotzdem falsch sein kann.</p><label for="m2k4Why">Warum wirkt diese Antwort so glaubwürdig (Sprache, Details, Form)?</label><textarea id="m2k4Why" placeholder="Konkrete, plausible Details wie Namen, ISBN, Prozentzahl …"></textarea><label for="m2k4Check">Wie prüfen Sie, ob Studie, Autor:in und Zahl wirklich existieren?</label><textarea id="m2k4Check" placeholder="Konkrete Prüfschritte …"></textarea><label for="m2k4Reason">Weshalb kann ein Sprachmodell solche Angaben erfinden, obwohl es «nur» Wahrscheinlichkeiten nutzt?</label><textarea id="m2k4Reason" placeholder="Zusammenhang zur Funktionsweise …"></textarea><button type="button" onclick="m2saveThree('m2k4Why','m2k4Check','m2k4Reason','m2k4Feedback','m2k4')">Analyse speichern</button><button type="button" class="secondary" onclick="toggle('m2k4Hint')">Musteraspekte anzeigen</button><div id="m2k4Feedback" class="feedback" aria-live="polite"></div><div id="m2k4Hint" class="feedback warn"><strong>Musteraspekte:</strong> Die Antwort wirkt glaubwürdig, weil sie konkrete, überprüfbar erscheinende Details liefert (Name, Institution, ISBN, exakte Prozentzahl). Genau diese Form kann ein Sprachmodell erzeugen, ohne dass die Angaben real sind: Es setzt wahrscheinliche Textbausteine zusammen. Prüfen lässt sich das nur über unabhängige Quellen: Bibliothekskatalog, Verlags- und Hochschulseiten, ISBN-Suche. Eine plausible Form ist kein Beleg für Wahrheit.</div></div></section>
+
+    <section id="m2k5"><div class="section-title"><span class="badge">K5</span><h2>Evaluieren: Grenzen einschätzen</h2></div><div class="card"><div class="task-meta"><span class="pill">Aufgabe 5</span><span class="pill">Fall Lernwerk GmbH</span></div><div class="context"><strong>Ausgangslage:</strong> Die Lernwerk GmbH überlegt, für welche der folgenden Aufgaben sie einem Sprachmodell vertraut.</div><p>Beurteilen Sie: Für welche Aufgabe ist der alleinige Einsatz eines Sprachmodells vertretbar?</p><div class="choices" role="radiogroup" aria-label="Einschätzung"><label class="choice"><input type="radio" name="m2trust" value="a"> Erstformulierung eines Einladungstexts, die anschliessend geprüft wird</label><label class="choice"><input type="radio" name="m2trust" value="b"> Verbindliche Auskunft zu einer aktuellen gesetzlichen Frist, ohne weitere Prüfung</label><label class="choice"><input type="radio" name="m2trust" value="c"> Automatische Veröffentlichung von Fakten auf der Website ohne Kontrolle</label></div><label for="m2k5Reason">Begründen Sie Ihre Wahl mit Bezug auf Trainingsdaten, Aktualität und die Plausibilitätsfalle.</label><textarea id="m2k5Reason" placeholder="Meine begründete Einschätzung …"></textarea><button type="button" onclick="m2checkK5()">Einschätzung prüfen und speichern</button><div id="m2k5Feedback" class="feedback" aria-live="polite"></div></div></section>
+
+    <section id="m2k6"><div class="section-title"><span class="badge">K6</span><h2>Erstellen: Umgangsregel entwickeln</h2></div><div class="card"><div class="task-meta"><span class="pill">Aufgabe 6</span><span class="pill">Fall Lernwerk GmbH</span><span class="pill">Transferprodukt</span></div><div class="context"><strong>Ausgangslage:</strong> Das Team der Lernwerk GmbH wünscht sich eine kurze, alltagstaugliche Merkhilfe für den Umgang mit Sprachmodellen – besonders zu Plausibilitätsfalle und Kontextfenster.</div><p>Formulieren Sie eine kompakte Umgangsregel. Bearbeiten Sie alle Bausteine.</p><div class="grid-2"><div><label for="m2k6Rule">1. Grundregel in einem Satz</label><textarea id="m2k6Rule" placeholder="Zum Beispiel: Plausibel ist nicht dasselbe wie belegt …"></textarea><label for="m2k6Check">2. Woran prüfe ich zentrale Aussagen?</label><textarea id="m2k6Check" placeholder="Unabhängige Quellen, Aktualität …"></textarea><label for="m2k6Context">3. Was beachte ich bei langen Dokumenten/Gesprächen (Kontextfenster)?</label><textarea id="m2k6Context" placeholder="Warum kann das Modell frühere Inhalte «vergessen»?"></textarea></div><div><label for="m2k6When">4. Wann ist ein Sprachmodell geeignet – wann nicht?</label><textarea id="m2k6When" placeholder="Geeignete vs. ungeeignete Aufgaben …"></textarea><label for="m2k6Who">5. Wer prüft und gibt frei?</label><textarea id="m2k6Who" placeholder="Verantwortung, Vier-Augen-Prinzip …"></textarea><label for="m2k6Steps">6. Merkhilfe in 3–5 Schritten</label><textarea id="m2k6Steps" placeholder="1. …&#10;2. …"></textarea></div></div><button type="button" onclick="m2saveK6()">Umgangsregel speichern</button><button type="button" class="secondary" onclick="toggle('m2k6Hint')">Qualitätskriterien anzeigen</button><div id="m2k6Feedback" class="feedback" aria-live="polite"></div><div id="m2k6Hint" class="feedback warn"><strong>Qualitätskriterien:</strong> Eine gute Umgangsregel benennt die Plausibilitätsfalle, verlangt die Prüfung zentraler Aussagen an unabhängigen Quellen, berücksichtigt Aktualität und Trainingsdatengrenzen, erklärt in Grundzügen das Kontextfenster (das Modell kann bei sehr langen Texten frühere Teile aus dem Blick verlieren) und regelt Verantwortung und Freigabe.</div></div></section>
+
+    <section class="card final" id="m2final"><h2>Abschlussreflexion Modul 2</h2><p>Beantworten Sie zum Schluss: <strong>Was hat sich an Ihrem Bild von KI verändert, seit Sie wissen, wie ein Sprachmodell Text erzeugt?</strong></p><textarea id="m2reflection" placeholder="Meine Reflexion …"></textarea><button type="button" onclick="m2saveText('m2reflection','m2reflectionFeedback','m2reflection')">Reflexion speichern</button><button type="button" onclick="m2downloadAnswersPDF()">Meine Antworten (Modul 2) als PDF herunterladen</button><button type="button" class="secondary" onclick="window.print()">Arbeitsstand drucken / als PDF sichern</button><div id="m2reflectionFeedback" class="feedback" aria-live="polite"></div></section>
+  </main>
+
   <script>
     const k1Items = [
       ['Die KI nennt eine Studie aus dem Jahr 2024, die sich weder über wissenschaftliche Datenbanken noch auf der Website der genannten Hochschule finden lässt.', 'H', 'Eine nicht auffindbare Studie ist ein Warnsignal für eine mögliche Halluzination.'],
@@ -260,7 +301,8 @@
       k6: () => { const ids=['k6Scope','k6Fact','k6Bias','k6Roles','k6Doc','k6Process']; return 'Aufgabe K6 (Qualitätssicherungsprozess):\n'+ids.map(id=>id+': '+(document.getElementById(id).value||'(leer)')).join('\n'); }
     };
 
-    function buildChat(sectionKey){
+    function buildChat(sectionKey, ctxMap){
+      ctxMap = ctxMap || chatContext;
       const wrap = document.createElement('div');
       wrap.className = 'chat';
       wrap.style.display = 'none';
@@ -298,7 +340,7 @@
         ta.value=''; sendBtn.disabled=true;
         const typing = addMsg('bot typing', 'schreibt …');
         try{
-          const ctx = (mode==='coach' && chatContext[sectionKey]) ? chatContext[sectionKey]() : '';
+          const ctx = (mode==='coach' && ctxMap[sectionKey]) ? ctxMap[sectionKey]() : '';
           const r = await fetch('/api/chat', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ mode, context: ctx, messages: history }) });
           const data = await r.json();
           typing.remove();
@@ -423,6 +465,98 @@
       if(!w){ alert('Bitte Pop-ups für diese Seite erlauben, damit das PDF erstellt werden kann.'); return; }
       w.document.open(); w.document.write(html); w.document.close();
     }
+  
+    /* ================= MODUL 2 LOGIK ================= */
+    const m2k1Items = [
+      ['Trainingsdaten sind die Texte und Beispiele, aus denen ein Sprachmodell seine Muster gelernt hat.', 'R', 'Genau: Aus diesen Daten stammen die Wahrscheinlichkeiten, mit denen das Modell arbeitet.'],
+      ['Ein Sprachmodell versteht den Inhalt eines Satzes so wie ein Mensch.', 'F', 'Es sagt das wahrscheinlichste nächste Textstück voraus, ohne echtes Verständnis.'],
+      ['Ein Sprachmodell erzeugt Text, indem es Wort für Wort das wahrscheinlichste nächste Element vorhersagt.', 'R', 'Das ist die Grundmechanik der Textgenerierung.'],
+      ['Wenn eine KI-Antwort flüssig und plausibel klingt, ist sie deshalb auch inhaltlich korrekt.', 'F', 'Plausibilität ist kein Beleg für Wahrheit – eine flüssige Antwort kann trotzdem falsch sein.'],
+      ['Das Kontextfenster begrenzt, wie viel Text ein Modell gleichzeitig berücksichtigen kann.', 'R', 'Bei sehr langen Dokumenten oder Gesprächen können frühere Teile aus dem Blick geraten.'],
+      ['Ein Modell kennt automatisch alle tagesaktuellen Ereignisse.', 'F', 'Das Wissen reicht nur so weit wie die Trainingsdaten; Aktuelles fehlt oft.']
+    ];
+    const M2TOTAL = 6;
+    const m2sectionOf = { m2k1:'m2k1', m2k2:'m2k2', m2k3:'m2k3', m2k4:'m2k4', m2k5:'m2k5', m2k6:'m2k6' };
+    const m2completed = new Set();
+
+    function m2renderK1() { const target = document.getElementById('m2k1Quiz'); if(!target || target.querySelector('fieldset')) return; target.innerHTML = m2k1Items.map((item, i) => `<fieldset style="border:0;padding:0;margin:0"><legend><strong>${i+1}.</strong> ${item[0]}</legend><div class="choices" style="grid-template-columns:repeat(2,minmax(0,1fr));margin:7px 0 13px">${[['R','richtig'],['F','falsch']].map(o => `<label class="choice"><input type="radio" name="m2k1_${i}" value="${o[0]}"> ${o[1]}</label>`).join('')}</div></fieldset>`).join(''); }
+
+    function m2markNav(key){ const a=document.querySelector('.nav a[href="#'+key+'"]'); if(a) a.classList.add('nav-done'); const sec=document.getElementById(key); if(sec){ sec.classList.add('is-done'); const b=sec.querySelector('.badge'); if(b) b.classList.add('badge-done'); } }
+
+    function m2setDone(key) {
+      const wasNew = !m2completed.has(key);
+      m2completed.add(key);
+      const count = m2completed.size;
+      document.getElementById('m2done').textContent = count;
+      document.getElementById('m2total').textContent = M2TOTAL;
+      document.getElementById('m2progressBar').style.width = (count / M2TOTAL * 100) + '%';
+      if(m2sectionOf[key]) m2markNav(m2sectionOf[key]);
+      if(wasNew && count < M2TOTAL) toast('Modul 2: Fortschritt gespeichert · ' + count + ' von ' + M2TOTAL);
+      if(count >= M2TOTAL){ toast('🎉 Modul 2 vollständig bearbeitet!'); const fin=document.getElementById('m2final'); if(fin) fin.classList.add('celebrate'); }
+      try{ localStorage.setItem('m2completedSet', JSON.stringify([...m2completed])); }catch(e){}
+    }
+
+    function m2checkK1() { let score = 0; let details = []; m2k1Items.forEach((item, i) => { const chosen = document.querySelector(`input[name="m2k1_${i}"]:checked`); document.querySelectorAll(`input[name="m2k1_${i}"]`).forEach(r=>{ const lab=r.closest('.choice'); if(!lab) return; lab.classList.remove('correct','incorrect'); if(r.checked){ lab.classList.add(r.value===item[1]?'correct':'incorrect'); } if(r.value===item[1] && chosen && chosen.value!==item[1]){ lab.classList.add('correct'); } }); if (chosen && chosen.value === item[1]) score++; else details.push(`${i+1}: ${item[1]==='R'?'richtig':'falsch'} – ${item[2]}`); }); const type = score === m2k1Items.length ? 'good' : score >= 4 ? 'warn' : 'bad'; showFeedback('m2k1Feedback', `<strong>${score} von ${m2k1Items.length} richtig.</strong>${details.length ? '<br><br><strong>Rückmeldung:</strong><br>' + details.join('<br>') : '<br>Sehr gut: Sie unterscheiden Funktionsweise, Trainingsdaten und Grenzen sicher.'}`, type); m2setDone('m2k1'); }
+
+    function m2saveText(inputId, feedbackId, doneKey) { const val = document.getElementById(inputId).value.trim(); if (!val) return showFeedback(feedbackId, 'Bitte schreiben Sie zuerst einen Entwurf.', 'warn'); localStorage.setItem(inputId, val); showFeedback(feedbackId, 'Ihr Entwurf wurde in diesem Browser gespeichert. Prüfen Sie: Wird die Wort-für-Wort-Vorhersage deutlich? Trennen Sie flüssige Sprache von tatsächlicher Korrektheit?', 'good'); m2setDone(doneKey); }
+    function m2saveTwo(id1,id2,feedbackId,doneKey) { const a=document.getElementById(id1).value.trim(), b=document.getElementById(id2).value.trim(); if(!a || !b) return showFeedback(feedbackId,'Bitte füllen Sie beide Felder aus.','warn'); localStorage.setItem(id1,a); localStorage.setItem(id2,b); showFeedback(feedbackId,'Gespeichert. Achten Sie darauf: Für aktuelle oder lokale Fakten sind allgemeine Trainingsdaten oft nicht ausreichend.','good'); m2setDone(doneKey); }
+    function m2saveThree(id1,id2,id3,feedbackId,doneKey) { const vals=[id1,id2,id3].map(id=>document.getElementById(id).value.trim()); if(vals.some(v=>!v)) return showFeedback(feedbackId,'Bitte füllen Sie alle drei Felder aus.','warn'); [id1,id2,id3].forEach(id=>localStorage.setItem(id,document.getElementById(id).value)); showFeedback(feedbackId,'Analyse gespeichert. Kernpunkt: Eine plausible Form (Namen, ISBN, Prozentzahl) ist kein Beleg – nur unabhängige Quellen sind es.','good'); m2setDone(doneKey); }
+    function m2checkK5() { const choice=document.querySelector('input[name="m2trust"]:checked'); const reason=document.getElementById('m2k5Reason').value.trim(); if(!choice || !reason) return showFeedback('m2k5Feedback','Bitte wählen Sie eine Option und begründen Sie sie.','warn'); localStorage.setItem('m2k5Reason',reason); const correct=choice.value==='a'; const message=correct ? '<strong>Überzeugende Wahl: die geprüfte Erstformulierung.</strong> Hier nutzt man die Stärke des Modells (Sprache), während eine Person die Korrektheit verantwortet. Verbindliche Fristen und ungeprüfte Veröffentlichungen bergen wegen Aktualitäts- und Plausibilitätsrisiken zu grosse Gefahren.' : '<strong>Überdenken Sie die Wahl.</strong> Verbindliche Auskünfte zu Fristen und ungeprüfte Veröffentlichungen sind riskant: Trainingsdaten können veraltet sein, und plausibel klingende Angaben können falsch sein. Vertretbar ist die Erstformulierung, die anschliessend geprüft wird.'; showFeedback('m2k5Feedback',message,correct?'good':'warn'); m2setDone('m2k5'); }
+    function m2saveK6() { const ids=['m2k6Rule','m2k6Check','m2k6Context','m2k6When','m2k6Who','m2k6Steps']; const filled=ids.filter(id=>document.getElementById(id).value.trim()).length; ids.forEach(id=>localStorage.setItem(id,document.getElementById(id).value)); showFeedback('m2k6Feedback', filled===6 ? 'Ihre Umgangsregel wurde gespeichert. Prüfen Sie abschliessend, ob Plausibilitätsfalle, Quellenprüfung, Kontextfenster und Verantwortung klar geregelt sind.' : `Sie haben ${filled} von 6 Bausteinen ausgefüllt. Eine tragfähige Regel braucht alle sechs.`,filled===6?'good':'warn'); if(filled===6) m2setDone('m2k6'); }
+
+    function m2loadSaved() {
+      try{ const saved=JSON.parse(localStorage.getItem('m2completedSet')||'[]'); saved.forEach(k=>{ m2completed.add(k); if(m2sectionOf[k]) m2markNav(m2sectionOf[k]); }); const c=m2completed.size; document.getElementById('m2done').textContent=c; document.getElementById('m2total').textContent=M2TOTAL; document.getElementById('m2progressBar').style.width=(c/M2TOTAL*100)+'%'; if(c>=M2TOTAL){ const fin=document.getElementById('m2final'); if(fin) fin.classList.add('celebrate'); } }catch(e){}
+    }
+
+    const m2chatContext = {
+      m2k1: () => { const picks = m2k1Items.map((it,i)=>{ const c=document.querySelector(`input[name="m2k1_${i}"]:checked`); return `${i+1}) ${c?c.value:'—'}`; }).join(', '); return 'Modul 2, Aufgabe K1 (richtig/falsch zu KI-Grundbegriffen). Auswahl: '+picks; },
+      m2k2: () => 'Modul 2, Aufgabe K2 (erklären, wie ein Sprachmodell Text erzeugt). Antwort:\n'+(document.getElementById('m2k2Text').value||'(leer)'),
+      m2k3: () => 'Modul 2, Aufgabe K3 (Trainingsdaten-Wirkung).\nGut geeignet:\n'+(document.getElementById('m2k3Good').value||'(leer)')+'\nVorsicht:\n'+(document.getElementById('m2k3Bad').value||'(leer)'),
+      m2k4: () => 'Modul 2, Aufgabe K4 (plausibel aber falsch).\nWarum glaubwürdig:\n'+(document.getElementById('m2k4Why').value||'(leer)')+'\nPrüfung:\n'+(document.getElementById('m2k4Check').value||'(leer)')+'\nBezug Funktionsweise:\n'+(document.getElementById('m2k4Reason').value||'(leer)'),
+      m2k5: () => { const c=document.querySelector('input[name="m2trust"]:checked'); return 'Modul 2, Aufgabe K5 (Grenzen einschätzen). Wahl: '+(c?c.value:'(keine)')+'\nBegründung:\n'+(document.getElementById('m2k5Reason').value||'(leer)'); },
+      m2k6: () => { const ids=['m2k6Rule','m2k6Check','m2k6Context','m2k6When','m2k6Who','m2k6Steps']; return 'Modul 2, Aufgabe K6 (Umgangsregel):\n'+ids.map(id=>id+': '+(document.getElementById(id).value||'(leer)')).join('\n'); }
+    };
+
+    function m2attachChats(){
+      ['m2k1','m2k2','m2k3','m2k4','m2k5','m2k6'].forEach(key=>{
+        const sec = document.getElementById(key);
+        if(!sec) return;
+        const card = sec.querySelector('.card') || sec.querySelector('.grid-2');
+        if(!card) return;
+        const btn = document.createElement('button');
+        btn.type='button'; btn.className='secondary chat-toggle'; btn.textContent='KI-Assistent öffnen';
+        const chat = buildChat(key, m2chatContext);
+        btn.addEventListener('click', ()=>{ const show = chat.style.display==='none'; chat.style.display = show?'block':'none'; btn.textContent = show?'KI-Assistent schliessen':'KI-Assistent öffnen'; });
+        card.appendChild(btn);
+        card.appendChild(chat);
+      });
+    }
+
+    function m2downloadAnswersPDF(){
+      const g = id => document.getElementById(id) ? document.getElementById(id).value : '';
+      const trust = document.querySelector('input[name="m2trust"]:checked');
+      const trustLabels = {a:'Geprüfte Erstformulierung', b:'Verbindliche Fristauskunft ohne Prüfung', c:'Automatische Veröffentlichung ohne Kontrolle'};
+      const m2collectK1 = () => m2k1Items.map((item,i)=>{ const c=document.querySelector(`input[name="m2k1_${i}"]:checked`); const val=c?c.value:null; const ok=val===item[1]; const mark=val?(ok?'✓ richtig':'✗ erwartet: '+(item[1]==='R'?'richtig':'falsch')):'— keine Auswahl'; return `<li><span class="q">${i+1}. ${esc(item[0])}</span><br><span class="ans">Ihre Antwort: <strong>${val?(val==='R'?'richtig':'falsch'):'—'}</strong> &nbsp;<em>(${mark})</em></span></li>`; }).join('');
+      const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Lernwerk GmbH – Modul 2 – Meine Antworten</title>
+      <style>@page{margin:18mm 16mm}body{font-family:Georgia,serif;color:#172633;line-height:1.5;font-size:11.5pt}h1{font-size:20pt;margin:0 0 4px;color:#1d2c3c}h2{font-size:13.5pt;color:#8e3900;border-bottom:2px solid #b94b02;padding-bottom:3px;margin:22px 0 10px;page-break-after:avoid}.meta{color:#5a6875;font-size:10pt;margin-bottom:18px}.task{font-weight:bold;margin:14px 0 4px}.block{margin:0 0 12px;page-break-inside:avoid}.label{font-weight:bold;font-size:10.5pt;color:#2b4057;margin-top:8px}.val{margin:2px 0 8px;padding:8px 10px;background:#f4f6f8;border-left:3px solid #d5dce2;border-radius:0 6px 6px 0}.empty{color:#9aa6b1;font-style:italic}ul.k1{list-style:none;padding:0;margin:0}ul.k1 li{margin:0 0 10px;padding-bottom:8px;border-bottom:1px dotted #d5dce2}.decision{padding:8px 10px;background:#fff0e6;border-left:3px solid #b94b02;border-radius:0 6px 6px 0;font-weight:bold}footer{margin-top:26px;font-size:9pt;color:#5a6875;border-top:1px solid #d5dce2;padding-top:8px}</style></head><body>
+      <h1>KI verstehen: Daten, Textgenerierung und Grenzen</h1>
+      <div class="meta">Lernwerk GmbH · Modul 2 · Meine Antworten · ${new Date().toLocaleDateString('de-CH',{year:'numeric',month:'long',day:'numeric'})}</div>
+      <h2>K1 · Wissen: richtig oder falsch</h2><ul class="k1">${m2collectK1()}</ul>
+      <h2>K2 · Verstehen: Textgenerierung erklären</h2><div class="block"><div class="val">${answered(g('m2k2Text'))}</div></div>
+      <h2>K3 · Anwenden: Trainingsdaten und ihre Wirkung</h2><div class="block"><div class="label">Gut geeignet</div><div class="val">${answered(g('m2k3Good'))}</div><div class="label">Vorsicht geboten</div><div class="val">${answered(g('m2k3Bad'))}</div></div>
+      <h2>K4 · Analysieren: plausibel, aber falsch</h2><div class="block"><div class="label">Warum glaubwürdig</div><div class="val">${answered(g('m2k4Why'))}</div><div class="label">Prüfung</div><div class="val">${answered(g('m2k4Check'))}</div><div class="label">Bezug zur Funktionsweise</div><div class="val">${answered(g('m2k4Reason'))}</div></div>
+      <h2>K5 · Evaluieren: Grenzen einschätzen</h2><div class="block"><div class="decision">Wahl: ${trust ? trustLabels[trust.value] : '<span class="empty">— nicht gewählt —</span>'}</div><div class="label">Begründung</div><div class="val">${answered(g('m2k5Reason'))}</div></div>
+      <h2>K6 · Erstellen: Umgangsregel</h2><div class="block"><div class="label">1. Grundregel</div><div class="val">${answered(g('m2k6Rule'))}</div><div class="label">2. Prüfung zentraler Aussagen</div><div class="val">${answered(g('m2k6Check'))}</div><div class="label">3. Kontextfenster</div><div class="val">${answered(g('m2k6Context'))}</div><div class="label">4. Geeignet / ungeeignet</div><div class="val">${answered(g('m2k6When'))}</div><div class="label">5. Prüfung und Freigabe</div><div class="val">${answered(g('m2k6Who'))}</div><div class="label">6. Merkhilfe in Schritten</div><div class="val">${answered(g('m2k6Steps'))}</div></div>
+      <h2>Abschlussreflexion</h2><div class="block"><div class="val">${answered(g('m2reflection'))}</div></div>
+      <footer>Interaktive Lernsequenz · Lernwerk GmbH · Modul 2: KI verstehen</footer>
+      <script>window.onload=function(){window.print();}<\/script></body></html>`;
+      const w = window.open('', '_blank');
+      if(!w){ alert('Bitte Pop-ups für diese Seite erlauben, damit das PDF erstellt werden kann.'); return; }
+      w.document.open(); w.document.write(html); w.document.close();
+    }
+
+    m2renderK1(); m2loadSaved(); m2attachChats();
+
   </script>
 </body>
 </html>
