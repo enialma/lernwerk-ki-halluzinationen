@@ -162,7 +162,7 @@ const k1Items = [
       const releaseLabels = {freigeben:'Freigeben', ueberarbeiten:'Freigeben nach Überarbeitung', nicht:'Nicht freigeben'};
 
       const html = `<!doctype html><html lang="de"><head><meta charset="utf-8">
-      <title>Lernwerk GmbH – Meine Antworten</title>
+      <title>Lernwerk GmbH – Kapitel 3 – Meine Antworten</title>
       <style>
         @page { margin: 18mm 16mm; }
         body { font-family: Georgia, "Times New Roman", serif; color:#172633; line-height:1.5; font-size:11.5pt; }
@@ -182,7 +182,7 @@ const k1Items = [
         footer { margin-top:26px; font-size:9pt; color:#5a6875; border-top:1px solid #d5dce2; padding-top:8px; }
       </style></head><body>
       <h1>Halluzinationen und Bias bei KI erkennen</h1>
-      <div class="meta">Lernwerk GmbH · Meine Antworten · ${new Date().toLocaleDateString('de-CH',{year:'numeric',month:'long',day:'numeric'})}</div>
+      <div class="meta">Lernwerk GmbH · Kapitel 3 · Meine Antworten · ${new Date().toLocaleDateString('de-CH',{year:'numeric',month:'long',day:'numeric'})}</div>
 
       <h2>K1 · Wissen: Halluzination, Bias oder unklar?</h2>
       <ul class="k1">${collectK1()}</ul>
@@ -225,7 +225,7 @@ const k1Items = [
       <h2>Abschlussreflexion</h2>
       <div class="block"><div class="label">Meine persönliche Prüffrage</div><div class="val">${answered(g('reflection'))}</div></div>
 
-      <footer>Interaktive Lernsequenz · Lernwerk GmbH · Thema: Halluzinationen und Bias bei LLMs</footer>
+      <footer>Interaktive Lernsequenz · Lernwerk GmbH · Kapitel 3: Halluzinationen und Bias</footer>
       <script>window.onload=function(){window.print();}<\/script>
       </body></html>`;
 
@@ -259,8 +259,8 @@ const k1Items = [
       document.getElementById('m2total').textContent = M2TOTAL;
       document.getElementById('m2progressBar').style.width = (count / M2TOTAL * 100) + '%';
       if(m2sectionOf[key]) m2markNav(m2sectionOf[key]);
-      if(wasNew && count < M2TOTAL) toast('Modul 2: Fortschritt gespeichert · ' + count + ' von ' + M2TOTAL);
-      if(count >= M2TOTAL){ toast('🎉 Modul 2 vollständig bearbeitet!'); const fin=document.getElementById('m2final'); if(fin) fin.classList.add('celebrate'); }
+      if(wasNew && count < M2TOTAL) toast('Kapitel 2: Fortschritt gespeichert · ' + count + ' von ' + M2TOTAL);
+      if(count >= M2TOTAL){ toast('🎉 Kapitel 2 vollständig bearbeitet!'); const fin=document.getElementById('m2final'); if(fin) fin.classList.add('celebrate'); }
       try{ localStorage.setItem('m2completedSet', JSON.stringify([...m2completed])); }catch(e){}
     }
 
@@ -277,12 +277,12 @@ const k1Items = [
     }
 
     const m2chatContext = {
-      m2k1: () => { const picks = m2k1Items.map((it,i)=>{ const c=document.querySelector(`input[name="m2k1_${i}"]:checked`); return `${i+1}) ${c?c.value:'—'}`; }).join(', '); return 'Modul 2, Aufgabe K1 (richtig/falsch zu KI-Grundbegriffen). Auswahl: '+picks; },
-      m2k2: () => 'Modul 2, Aufgabe K2 (erklären, wie ein Sprachmodell Text erzeugt). Antwort:\n'+(document.getElementById('m2k2Text').value||'(leer)'),
-      m2k3: () => 'Modul 2, Aufgabe K3 (Trainingsdaten-Wirkung).\nGut geeignet:\n'+(document.getElementById('m2k3Good').value||'(leer)')+'\nVorsicht:\n'+(document.getElementById('m2k3Bad').value||'(leer)'),
-      m2k4: () => 'Modul 2, Aufgabe K4 (plausibel aber falsch).\nWarum glaubwürdig:\n'+(document.getElementById('m2k4Why').value||'(leer)')+'\nPrüfung:\n'+(document.getElementById('m2k4Check').value||'(leer)')+'\nBezug Funktionsweise:\n'+(document.getElementById('m2k4Reason').value||'(leer)'),
-      m2k5: () => { const c=document.querySelector('input[name="m2trust"]:checked'); return 'Modul 2, Aufgabe K5 (Grenzen einschätzen). Wahl: '+(c?c.value:'(keine)')+'\nBegründung:\n'+(document.getElementById('m2k5Reason').value||'(leer)'); },
-      m2k6: () => { const ids=['m2k6Rule','m2k6Check','m2k6Context','m2k6When','m2k6Who','m2k6Steps']; return 'Modul 2, Aufgabe K6 (Umgangsregel):\n'+ids.map(id=>id+': '+(document.getElementById(id).value||'(leer)')).join('\n'); }
+      m2k1: () => { const picks = m2k1Items.map((it,i)=>{ const c=document.querySelector(`input[name="m2k1_${i}"]:checked`); return `${i+1}) ${c?c.value:'—'}`; }).join(', '); return 'Kapitel 2, Aufgabe K1 (richtig/falsch zu KI-Grundbegriffen). Auswahl: '+picks; },
+      m2k2: () => 'Kapitel 2, Aufgabe K2 (erklären, wie ein Sprachmodell Text erzeugt). Antwort:\n'+(document.getElementById('m2k2Text').value||'(leer)'),
+      m2k3: () => 'Kapitel 2, Aufgabe K3 (Trainingsdaten-Wirkung).\nGut geeignet:\n'+(document.getElementById('m2k3Good').value||'(leer)')+'\nVorsicht:\n'+(document.getElementById('m2k3Bad').value||'(leer)'),
+      m2k4: () => 'Kapitel 2, Aufgabe K4 (plausibel aber falsch).\nWarum glaubwürdig:\n'+(document.getElementById('m2k4Why').value||'(leer)')+'\nPrüfung:\n'+(document.getElementById('m2k4Check').value||'(leer)')+'\nBezug Funktionsweise:\n'+(document.getElementById('m2k4Reason').value||'(leer)'),
+      m2k5: () => { const c=document.querySelector('input[name="m2trust"]:checked'); return 'Kapitel 2, Aufgabe K5 (Grenzen einschätzen). Wahl: '+(c?c.value:'(keine)')+'\nBegründung:\n'+(document.getElementById('m2k5Reason').value||'(leer)'); },
+      m2k6: () => { const ids=['m2k6Rule','m2k6Check','m2k6Context','m2k6When','m2k6Who','m2k6Steps']; return 'Kapitel 2, Aufgabe K6 (Umgangsregel):\n'+ids.map(id=>id+': '+(document.getElementById(id).value||'(leer)')).join('\n'); }
     };
 
     function m2attachChats(){
@@ -305,10 +305,10 @@ const k1Items = [
       const trust = document.querySelector('input[name="m2trust"]:checked');
       const trustLabels = {a:'Geprüfte Erstformulierung', b:'Verbindliche Fristauskunft ohne Prüfung', c:'Automatische Veröffentlichung ohne Kontrolle'};
       const m2collectK1 = () => m2k1Items.map((item,i)=>{ const c=document.querySelector(`input[name="m2k1_${i}"]:checked`); const val=c?c.value:null; const ok=val===item[1]; const mark=val?(ok?'✓ richtig':'✗ erwartet: '+(item[1]==='R'?'richtig':'falsch')):'— keine Auswahl'; return `<li><span class="q">${i+1}. ${esc(item[0])}</span><br><span class="ans">Ihre Antwort: <strong>${val?(val==='R'?'richtig':'falsch'):'—'}</strong> &nbsp;<em>(${mark})</em></span></li>`; }).join('');
-      const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Lernwerk GmbH – Modul 2 – Meine Antworten</title>
+      const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>Lernwerk GmbH – Kapitel 2 – Meine Antworten</title>
       <style>@page{margin:18mm 16mm}body{font-family:Georgia,serif;color:#172633;line-height:1.5;font-size:11.5pt}h1{font-size:20pt;margin:0 0 4px;color:#1d2c3c}h2{font-size:13.5pt;color:#8e3900;border-bottom:2px solid #b94b02;padding-bottom:3px;margin:22px 0 10px;page-break-after:avoid}.meta{color:#5a6875;font-size:10pt;margin-bottom:18px}.task{font-weight:bold;margin:14px 0 4px}.block{margin:0 0 12px;page-break-inside:avoid}.label{font-weight:bold;font-size:10.5pt;color:#2b4057;margin-top:8px}.val{margin:2px 0 8px;padding:8px 10px;background:#f4f6f8;border-left:3px solid #d5dce2;border-radius:0 6px 6px 0}.empty{color:#9aa6b1;font-style:italic}ul.k1{list-style:none;padding:0;margin:0}ul.k1 li{margin:0 0 10px;padding-bottom:8px;border-bottom:1px dotted #d5dce2}.decision{padding:8px 10px;background:#fff0e6;border-left:3px solid #b94b02;border-radius:0 6px 6px 0;font-weight:bold}footer{margin-top:26px;font-size:9pt;color:#5a6875;border-top:1px solid #d5dce2;padding-top:8px}</style></head><body>
       <h1>KI verstehen: Daten, Textgenerierung und Grenzen</h1>
-      <div class="meta">Lernwerk GmbH · Modul 2 · Meine Antworten · ${new Date().toLocaleDateString('de-CH',{year:'numeric',month:'long',day:'numeric'})}</div>
+      <div class="meta">Lernwerk GmbH · Kapitel 2 · Meine Antworten · ${new Date().toLocaleDateString('de-CH',{year:'numeric',month:'long',day:'numeric'})}</div>
       <h2>K1 · Wissen: richtig oder falsch</h2><ul class="k1">${m2collectK1()}</ul>
       <h2>K2 · Verstehen: Textgenerierung erklären</h2><div class="block"><div class="val">${answered(g('m2k2Text'))}</div></div>
       <h2>K3 · Anwenden: Trainingsdaten und ihre Wirkung</h2><div class="block"><div class="label">Gut geeignet</div><div class="val">${answered(g('m2k3Good'))}</div><div class="label">Vorsicht geboten</div><div class="val">${answered(g('m2k3Bad'))}</div></div>
@@ -316,7 +316,7 @@ const k1Items = [
       <h2>K5 · Evaluieren: Grenzen einschätzen</h2><div class="block"><div class="decision">Wahl: ${trust ? trustLabels[trust.value] : '<span class="empty">— nicht gewählt —</span>'}</div><div class="label">Begründung</div><div class="val">${answered(g('m2k5Reason'))}</div></div>
       <h2>K6 · Erstellen: Umgangsregel</h2><div class="block"><div class="label">1. Grundregel</div><div class="val">${answered(g('m2k6Rule'))}</div><div class="label">2. Prüfung zentraler Aussagen</div><div class="val">${answered(g('m2k6Check'))}</div><div class="label">3. Kontextfenster</div><div class="val">${answered(g('m2k6Context'))}</div><div class="label">4. Geeignet / ungeeignet</div><div class="val">${answered(g('m2k6When'))}</div><div class="label">5. Prüfung und Freigabe</div><div class="val">${answered(g('m2k6Who'))}</div><div class="label">6. Merkhilfe in Schritten</div><div class="val">${answered(g('m2k6Steps'))}</div></div>
       <h2>Abschlussreflexion</h2><div class="block"><div class="val">${answered(g('m2reflection'))}</div></div>
-      <footer>Interaktive Lernsequenz · Lernwerk GmbH · Modul 2: KI verstehen</footer>
+      <footer>Interaktive Lernsequenz · Lernwerk GmbH · Kapitel 2: KI verstehen</footer>
       <script>window.onload=function(){window.print();}<\/script></body></html>`;
       const w = window.open('', '_blank');
       if(!w){ alert('Bitte Pop-ups für diese Seite erlauben, damit das PDF erstellt werden kann.'); return; }

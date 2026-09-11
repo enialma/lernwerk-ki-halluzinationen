@@ -7,15 +7,19 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     .home-hero { color: white; background: radial-gradient(circle at 85% 18%, rgba(185,75,2,.42), transparent 30%), linear-gradient(125deg, var(--blue-dark), var(--blue)); padding: 60px 20px 54px; }
-    .modules { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; margin: 30px 0 20px; }
-    .mod-card { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease; }
-    .mod-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(43,64,87,.16); border-color: var(--orange); }
-    .mod-num { display: inline-block; background: var(--orange); color: white; font-weight: 850; border-radius: 999px; padding: 4px 13px; font-size: .85rem; margin-bottom: 12px; }
-    .mod-card h3 { font-size: 1.3rem; margin: 0 0 8px; color: var(--blue); }
-    .mod-card p { margin: 0 0 14px; color: var(--muted); }
-    .mod-go { font-weight: 800; color: var(--orange); }
-    .mod-meta { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
-    @media (max-width: 760px) { .modules { grid-template-columns: 1fr; } }
+    .toc { margin: 30px 0 20px; display: grid; gap: 16px; }
+    .ch-card { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 24px; transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease; }
+    .ch-card.active:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(43,64,87,.16); border-color: var(--orange); }
+    .ch-card.soon { opacity: .72; cursor: default; }
+    .ch-head { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .ch-num { background: var(--orange); color: white; font-weight: 850; border-radius: 999px; padding: 4px 13px; font-size: .82rem; white-space: nowrap; }
+    .ch-card.soon .ch-num { background: var(--muted); }
+    .ch-card h3 { font-size: 1.18rem; margin: 0; color: var(--blue); }
+    .ch-card p { margin: 0; color: var(--muted); }
+    .ch-sub { margin: 8px 0 0; padding-left: 2px; color: var(--muted); font-size: .93rem; }
+    .ch-sub span { display: inline-block; }
+    .ch-go { font-weight: 800; color: var(--orange); margin-top: 12px; }
+    .soon-tag { font-size: .78rem; font-weight: 800; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; margin-left: auto; }
   </style>
 </head>
 <body>
@@ -23,29 +27,38 @@
     <div class="wrap">
       <p class="eyebrow" style="color:#f8d7be">Lernwerk GmbH · Interaktiver KI-Kurs</p>
       <h1 style="font-size:clamp(2rem,4vw,3.4rem);margin:0;max-width:820px;line-height:1.1">KI verstehen, beurteilen und mit Daten arbeiten</h1>
-      <p class="lead" style="max-width:720px;margin:18px 0 0;color:#edf4f9">Ein praxisnaher Kurs für Jugendliche ab 15 und Erwachsene. Wählen Sie ein Modul, um zu starten. Ihre Eingaben werden im Browser gespeichert.</p>
+      <p class="lead" style="max-width:720px;margin:18px 0 0;color:#edf4f9">Ein praxisnaher Kurs für Jugendliche ab 15 und Erwachsene. Wählen Sie ein Kapitel, um zu starten. Ihre Eingaben werden im Browser gespeichert.</p>
     </div>
   </header>
 
   <main class="wrap">
-    <nav class="modules" aria-label="Kursmodule">
-      <a class="mod-card" href="modul-1.html">
-        <span class="mod-num">Modul 1</span>
-        <h3>Halluzinationen und Bias bei KI erkennen</h3>
-        <p>Texte aus KI-Systemen kritisch prüfen: Fakten belegen und einseitige Darstellungen erkennen. Sechs Kompetenzstufen von Wissen bis Gestalten.</p>
-        <div class="mod-meta"><span class="pill">6 Stufen</span><span class="pill">KI-Assistent</span><span class="pill">PDF-Export</span></div>
-        <p class="mod-go" style="margin-top:16px">Modul 1 starten &rarr;</p>
-      </a>
-      <a class="mod-card" href="modul-2.html">
-        <span class="mod-num">Modul 2</span>
-        <h3>KI verstehen: Daten, Textgenerierung und Grenzen</h3>
-        <p>Wie ein Sprachmodell Text erzeugt, was Trainingsdaten bewirken, warum plausible Antworten falsch sein können und was das Kontextfenster bedeutet.</p>
-        <div class="mod-meta"><span class="pill">6 Stufen</span><span class="pill">KI-Assistent</span><span class="pill">PDF-Export</span></div>
-        <p class="mod-go" style="margin-top:16px">Modul 2 starten &rarr;</p>
-      </a>
-    </nav>
+    <h2 style="color:var(--blue);margin:26px 0 4px">Inhaltsverzeichnis</h2>
 
-    <div class="notice" style="margin-top:8px"><strong>Hinweis:</strong> Der KI-Assistent unterstützt beim Lernen, ersetzt aber nicht die eigenständige Prüfung an Originalquellen. Geben Sie keine besonders schützenswerten Personendaten in den Chat ein.</div>
+    <div class="toc">
+      <div class="ch-card soon">
+        <div class="ch-head"><span class="ch-num">Kapitel 1</span><h3>Grundlagen: KI, ML, generative KI und LLM</h3><span class="soon-tag">in Vorbereitung</span></div>
+        <p class="ch-sub"><span>Praxisfall · KI, ML, generative KI und LLM · Wofür eignet sich generative KI? · Erste Stärken und Grenzen</span></p>
+      </div>
+
+      <a class="ch-card active" href="kapitel-2.html">
+        <div class="ch-head"><span class="ch-num">Kapitel 2</span><h3>KI verstehen: Daten, Textgenerierung und Grenzen</h3></div>
+        <p class="ch-sub"><span>Trainingsdaten · Wie ein Sprachmodell Text erzeugt · Kontextfenster</span></p>
+        <p class="ch-go">Kapitel 2 starten &rarr;</p>
+      </a>
+
+      <a class="ch-card active" href="kapitel-3.html">
+        <div class="ch-head"><span class="ch-num">Kapitel 3</span><h3>Halluzinationen und Bias erkennen</h3></div>
+        <p class="ch-sub"><span>Halluzinationen erkennen · Bias und Verzerrungen erkennen · Halluzination und Bias unterscheiden</span></p>
+        <p class="ch-go">Kapitel 3 starten &rarr;</p>
+      </a>
+
+      <div class="ch-card soon">
+        <div class="ch-head"><span class="ch-num">Kapitel 4</span><h3>Stärken, Grenzen und Verantwortung</h3><span class="soon-tag">in Vorbereitung</span></div>
+        <p class="ch-sub"><span>Stärken und Grenzen von Sprachmodellen · Regelbasierte und lernende Systeme · Verantwortung und menschliche Kontrolle</span></p>
+      </div>
+    </div>
+
+    <div class="notice" style="margin-top:14px"><strong>Hinweis:</strong> Der KI-Assistent unterstützt beim Lernen, ersetzt aber nicht die eigenständige Prüfung an Originalquellen. Geben Sie keine besonders schützenswerten Personendaten in den Chat ein.</div>
   </main>
   <footer>Interaktive Lernsequenz · Lernwerk GmbH · KI-Kurs</footer>
 </body>
