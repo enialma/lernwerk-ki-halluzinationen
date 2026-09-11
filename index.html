@@ -9,15 +9,6 @@
     .home-hero-img { width: 100%; background: var(--blue-dark); line-height: 0; }
     .hero-img { display: block; width: 100%; height: 460px; object-fit: cover; object-position: left center; margin: 0; }
     @media (max-width: 760px) { .hero-img { height: 300px; } }
-    .privacy { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px 28px; margin: 26px 0 10px; }
-    .privacy h2 { color: var(--blue); margin: 0 0 6px; }
-    .privacy h3 { color: var(--blue); font-size: 1.02rem; margin: 18px 0 4px; }
-    .privacy p, .privacy li { color: var(--ink); font-size: .95rem; line-height: 1.55; }
-    .privacy ul { margin: 6px 0 6px 0; padding-left: 20px; }
-    .privacy li { margin-bottom: 7px; }
-    .privacy-intro { color: var(--muted); }
-    .privacy-note { color: var(--muted); font-size: .88rem; margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
-    .privacy .ph { color: var(--orange); font-weight: 700; }
     .toc { margin: 30px 0 20px; display: grid; gap: 16px; }
     .ch-card { display: block; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 24px; transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease; }
     .ch-card.active:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(43,64,87,.16); border-color: var(--orange); }
@@ -68,41 +59,7 @@
     </div>
 
     <div class="notice" style="margin-top:14px"><strong>Hinweis:</strong> Der KI-Assistent unterstützt beim Lernen, ersetzt aber nicht die eigenständige Prüfung an Originalquellen. Geben Sie keine besonders schützenswerten Personendaten in den Chat ein.</div>
-
-    <section id="datenschutz" class="privacy" aria-label="Datenschutzhinweis">
-      <h2>Datenschutzhinweis</h2>
-      <p class="privacy-intro">Dieser Hinweis erläutert, wie in dieser Lernanwendung mit Daten umgegangen wird. Er richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, der EU-Datenschutz-Grundverordnung (DSGVO).</p>
-
-      <h3>Verantwortliche Stelle</h3>
-      <p>EDUTECSOL GmbH, Unterägeri (Kanton Zug), Schweiz.<br>
-      Alte Landstrasse 152b, 6314 Unterägeri · E-Mail: <a href="mailto:info@edutecsol.ch">info@edutecsol.ch</a></p>
-
-      <h3>Welche Daten verarbeitet werden</h3>
-      <p>Die Lernanwendung ist so gestaltet, dass so wenig personenbezogene Daten wie möglich verarbeitet werden.</p>
-      <ul>
-        <li><strong>Ihre Eingaben in den Aufgaben</strong> (Textantworten, Auswahl in Selbstchecks, Bearbeitungsfortschritt) werden ausschliesslich lokal in Ihrem Browser gespeichert (Local Storage). Sie verlassen Ihr Gerät nicht und werden nicht an uns übermittelt. Sie können sie jederzeit selbst löschen, indem Sie die Websitedaten Ihres Browsers leeren.</li>
-        <li><strong>Eingaben in den KI-Assistenten:</strong> Wenn Sie den Chat nutzen, wird der von Ihnen eingegebene Text sowie der Kontext der jeweiligen Aufgabe zur Beantwortung an unseren Dienstleister für KI-Sprachmodelle übermittelt und dort verarbeitet. Bitte geben Sie keine besonders schützenswerten Personendaten (z. B. Gesundheits-, Religions- oder andere sensible Daten) in den Chat ein.</li>
-        <li><strong>Technische Zugriffsdaten:</strong> Beim Aufruf der Seite werden durch den Hosting-Dienstleister technisch notwendige Daten (z. B. IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene Seite) verarbeitet, wie es beim Betrieb jeder Website üblich und für die Auslieferung erforderlich ist.</li>
-      </ul>
-
-      <h3>Eingesetzte Dienstleister (Auftragsbearbeiter)</h3>
-      <ul>
-        <li><strong>KI-Sprachmodell:</strong> Infomaniak Network SA (Schweiz). Die Verarbeitung erfolgt auf Infrastruktur in der Schweiz. Es werden nur die für die Antwort nötigen Chat-Inhalte übermittelt.</li>
-        <li><strong>Hosting:</strong> Vercel Inc. Die Seite wird über dessen Infrastruktur ausgeliefert; dabei können technische Zugriffsdaten anfallen. Bei einer Verarbeitung ausserhalb der Schweiz oder der EU stützen wir uns auf geeignete Garantien (z. B. Standardvertragsklauseln).</li>
-      </ul>
-
-      <h3>Zweck und Rechtsgrundlagen</h3>
-      <p>Die Verarbeitung dient ausschliesslich der Bereitstellung der Lernanwendung und des KI-Assistenten sowie dem sicheren, technischen Betrieb. Nach DSGVO stützt sich die Verarbeitung, soweit anwendbar, auf das berechtigte Interesse am Betrieb eines funktionsfähigen Lernangebots (Art. 6 Abs. 1 lit. f DSGVO) bzw. auf Ihre Nutzung des freiwilligen Chat-Angebots.</p>
-
-      <h3>Aufbewahrung</h3>
-      <p>Lokal gespeicherte Eingaben verbleiben so lange in Ihrem Browser, bis Sie sie löschen. An den KI-Dienstleister übermittelte Chat-Inhalte werden im Rahmen von dessen Vorgaben verarbeitet; eine dauerhafte Speicherung durch uns erfolgt nicht.</p>
-
-      <h3>Ihre Rechte</h3>
-      <p>Sie haben im Rahmen der anwendbaren Gesetze das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Bearbeitung sowie Widerspruch. Nach DSGVO besteht zudem ein Recht auf Datenübertragbarkeit und ein Beschwerderecht bei einer Aufsichtsbehörde. Wenden Sie sich dafür an die oben genannte verantwortliche Stelle.</p>
-
-      <p class="privacy-note"><em>Dieser Hinweis ist eine allgemeine Vorlage und ersetzt keine individuelle Rechtsberatung. Bitte prüfen und ergänzen Sie die Angaben vor dem produktiven Einsatz.</em></p>
-    </section>
   </main>
-  <footer>Interaktive Lernsequenz · Lernwerk GmbH · KI-Kurs · <a href="#datenschutz" style="color:inherit">Datenschutz</a></footer>
+  <footer>Interaktive Lernsequenz · Lernwerk GmbH · KI-Kurs · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></footer>
 </body>
 </html>

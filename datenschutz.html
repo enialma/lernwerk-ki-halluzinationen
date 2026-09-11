@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Datenschutz · Lernwerk GmbH · KI-Kurs</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .topbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 20px; background: var(--blue-dark); color: white; }
+    .topbar a { color: #edf4f9; text-decoration: none; font-weight: 700; }
+    .topbar-home { font-size: .92rem; }
+    .topbar-links { display: flex; gap: 6px; }
+    .topbar-links a { padding: 6px 13px; border-radius: 999px; font-size: .9rem; }
+    .topbar-links a:hover { background: rgba(255,255,255,.12); }
+    .dp { max-width: 820px; }
+    .dp h1 { color: var(--blue); margin: 0 0 4px; }
+    .dp .sub { color: var(--muted); margin: 0 0 8px; }
+    .dp h2 { color: var(--blue); font-size: 1.12rem; margin: 24px 0 6px; }
+    .dp p, .dp li { color: var(--ink); font-size: .96rem; line-height: 1.6; }
+    .dp ul { padding-left: 20px; }
+    .dp li { margin-bottom: 8px; }
+    .dp .highlight { background: var(--soft-blue); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 14px 0; }
+    .dp .note { color: var(--muted); font-size: .88rem; margin-top: 22px; border-top: 1px solid var(--line); padding-top: 14px; }
+    .dp .updated { color: var(--muted); font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <a href="index.html" class="topbar-home">&larr; Kursübersicht</a>
+    <div class="topbar-links">
+      <a href="kapitel-1.html">Kap. 1</a>
+      <a href="kapitel-2.html">Kap. 2</a>
+      <a href="kapitel-3.html">Kap. 3</a>
+      <a href="kapitel-4.html">Kap. 4</a>
+    </div>
+  </nav>
+
+  <main class="wrap dp">
+    <h1>Datenschutzhinweis</h1>
+    <p class="sub">Umgang mit Daten in dieser Lernanwendung</p>
+    <p>Dieser Hinweis erläutert, wie in dieser Lernanwendung mit Daten umgegangen wird. Er richtet sich nach dem Schweizer Datenschutzgesetz (DSG) und, soweit anwendbar, der EU-Datenschutz-Grundverordnung (DSGVO).</p>
+
+    <div class="highlight"><strong>Kurz zusammengefasst:</strong> Ihre Eingaben in den Aufgaben bleiben in Ihrem Browser und verlassen Ihr Gerät nicht. Die Inhalte des KI-Assistenten werden ausschliesslich in der Schweiz verarbeitet. Lediglich die technische Auslieferung der Seiten erfolgt über einen internationalen Hosting-Dienstleister.</p></div>
+
+    <h2>Verantwortliche Stelle</h2>
+    <p>EDUTECSOL GmbH, Unterägeri (Kanton Zug), Schweiz.<br>
+    Alte Landstrasse 152b, 6314 Unterägeri · E-Mail: <a href="mailto:info@edutecsol.ch">info@edutecsol.ch</a></p>
+
+    <h2>Welche Daten verarbeitet werden</h2>
+    <p>Die Lernanwendung ist so gestaltet, dass so wenig personenbezogene Daten wie möglich verarbeitet werden.</p>
+    <ul>
+      <li><strong>Ihre Eingaben in den Aufgaben</strong> (Textantworten, Auswahl in Selbstchecks, Bearbeitungsfortschritt) werden ausschliesslich lokal in Ihrem Browser gespeichert (Local Storage). Sie verlassen Ihr Gerät nicht und werden nicht an uns übermittelt. Sie können sie jederzeit selbst löschen, indem Sie die Websitedaten Ihres Browsers leeren.</li>
+      <li><strong>Eingaben in den KI-Assistenten:</strong> Wenn Sie den Chat nutzen, wird der von Ihnen eingegebene Text sowie der Kontext der jeweiligen Aufgabe zur Beantwortung an unseren Dienstleister für KI-Sprachmodelle übermittelt und dort verarbeitet. Bitte geben Sie keine besonders schützenswerten Personendaten (z. B. Gesundheits-, Religions- oder andere sensible Daten) in den Chat ein.</li>
+      <li><strong>Technische Zugriffsdaten:</strong> Beim Aufruf der Seite werden durch den Hosting-Dienstleister technisch notwendige Daten (z. B. IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene Seite) verarbeitet, wie es beim Betrieb jeder Website üblich und für die Auslieferung erforderlich ist.</li>
+    </ul>
+
+    <h2>Eingesetzte Dienstleister (Auftragsbearbeiter)</h2>
+    <ul>
+      <li><strong>KI-Sprachmodell: Infomaniak Network SA (Schweiz).</strong> Die Verarbeitung der Chat-Inhalte erfolgt auf Infrastruktur in der Schweiz. Es werden nur die für die Antwort nötigen Chat-Inhalte übermittelt.</li>
+      <li><strong>Hosting: Vercel Inc. (USA).</strong> Die statischen Seiten werden über die Infrastruktur von Vercel ausgeliefert; dabei fallen technische Zugriffsdaten (u. a. die IP-Adresse) an. Da es sich um einen Anbieter mit Sitz in den USA handelt, kann eine Übermittlung technischer Daten in die USA erfolgen. Diese wird durch geeignete Garantien im Sinne der DSGVO abgesichert, insbesondere durch die Standardvertragsklauseln der EU-Kommission (SCC). Über Vercel werden keine Lerninhalte und keine Chat-Eingaben verarbeitet.</li>
+    </ul>
+
+    <h2>Zweck und Rechtsgrundlagen</h2>
+    <p>Die Verarbeitung dient ausschliesslich der Bereitstellung der Lernanwendung und des KI-Assistenten sowie dem sicheren, technischen Betrieb. Nach DSGVO stützt sich die Verarbeitung, soweit anwendbar, auf das berechtigte Interesse am Betrieb eines funktionsfähigen Lernangebots (Art. 6 Abs. 1 lit. f DSGVO) bzw. auf Ihre Nutzung des freiwilligen Chat-Angebots.</p>
+
+    <h2>Aufbewahrung</h2>
+    <p>Lokal gespeicherte Eingaben verbleiben so lange in Ihrem Browser, bis Sie sie löschen. An den KI-Dienstleister übermittelte Chat-Inhalte werden im Rahmen von dessen Vorgaben verarbeitet; eine dauerhafte Speicherung durch uns erfolgt nicht.</p>
+
+    <h2>Ihre Rechte</h2>
+    <p>Sie haben im Rahmen der anwendbaren Gesetze das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Bearbeitung sowie Widerspruch. Nach DSGVO besteht zudem ein Recht auf Datenübertragbarkeit und ein Beschwerderecht bei einer Aufsichtsbehörde. Wenden Sie sich dafür an die oben genannte verantwortliche Stelle.</p>
+
+    <p class="note"><em>Dieser Hinweis ist eine allgemeine Vorlage und ersetzt keine individuelle Rechtsberatung. Bitte prüfen und ergänzen Sie die Angaben vor dem produktiven Einsatz.</em></p>
+    <p class="updated">Stand: September 2026</p>
+  </main>
+  <footer>Interaktive Lernsequenz · Lernwerk GmbH · KI-Kurs · <a href="index.html" style="color:inherit">Startseite</a></footer>
+</body>
+</html>
