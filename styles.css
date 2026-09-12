@@ -105,7 +105,7 @@
 
     .hero {
       color: white;
-      background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .46), transparent 27%), linear-gradient(125deg, var(--blue-dark), var(--blue));
+      background: var(--blue-dark);
       padding: 54px 20px 46px;
     }
     .wrap { max-width: 1080px; margin: 0 auto; }
@@ -210,9 +210,7 @@
     .chat-hint { padding: 8px 14px 12px; font-size: .82rem; color: var(--muted); }
     @media (max-width: 760px) { .hero-grid, .grid-2 { grid-template-columns: 1fr; } .hero { padding-top: 38px; } .msg { max-width: 92%; } }
     .module-divider { height: 3px; background: var(--orange); max-width: 1080px; margin: 20px auto 0; border-radius: 999px; }
-    .hero-m2 { background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .40), transparent 27%), linear-gradient(125deg, #24384c, #33506c); margin-top: 0; }
-    .hero-c1 { background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .40), transparent 27%), linear-gradient(125deg, var(--blue-dark), var(--blue)); margin-top: 0; }
-    .hero-c4 { background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .40), transparent 27%), linear-gradient(125deg, #2a2440, #3c3560); margin-top: 0; }
+    .hero-c1 { background: var(--blue-dark); margin-top: 0; }
     @media print { .hero { padding: 25px; } button, .nav, .chat, .chat-toggle { display: none; } body { background: white; } .card { box-shadow: none; break-inside: avoid; } }
 
     /* --- Hell-/Dunkelmodus-Schalter --- */
