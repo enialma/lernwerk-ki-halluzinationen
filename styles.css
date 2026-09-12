@@ -238,32 +238,5 @@
       html { scroll-behavior: auto; }
       .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
       .nav a, .nav a.current { transition: none; transform: none; }
-      .hero-visual svg rect { animation: none !important; }
       .toc .ch-card { animation: none !important; }
     }
-
-    /* --- Startseiten-Hero: eigenständige Illustration statt Stockfoto --- */
-    .home-hero { color: white; background: radial-gradient(circle at 85% 18%, rgba(185, 75, 2, .46), transparent 27%), linear-gradient(125deg, var(--blue-dark), var(--blue)); padding: 54px 20px 50px; }
-    .home-hero-grid { display: grid; grid-template-columns: 1.35fr .95fr; gap: 34px; align-items: center; }
-    .home-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
-    .home-brand svg { width: 34px; height: 34px; flex: 0 0 auto; }
-    .home-brand-text strong { display: block; font-size: 1.02rem; letter-spacing: -.01em; }
-    .home-brand-text span { display: block; font-size: .74rem; color: #cfe0ee; letter-spacing: .04em; }
-    .home-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 26px; }
-    .home-feature { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-    .home-feature .icon { width: 42px; height: 42px; border-radius: 12px; background: rgba(255,255,255,.14); display: flex; align-items: center; justify-content: center; }
-    .home-feature .icon svg { width: 21px; height: 21px; }
-    .home-feature span { font-size: .86rem; font-weight: 700; color: #eaf1f7; line-height: 1.3; }
-    .hero-visual { background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.22); border-radius: 18px; backdrop-filter: blur(7px); padding: 20px 20px 16px; }
-    .hero-visual svg { width: 100%; height: auto; display: block; }
-    .hero-visual svg rect { transform-box: fill-box; transform-origin: bottom; animation: growBar .6s cubic-bezier(.2,.8,.2,1) both; }
-    .hero-visual svg rect:nth-of-type(1) { animation-delay: .05s; }
-    .hero-visual svg rect:nth-of-type(2) { animation-delay: .15s; }
-    .hero-visual svg rect:nth-of-type(3) { animation-delay: .25s; }
-    .hero-visual svg rect:nth-of-type(4) { animation-delay: .35s; }
-    .hero-visual svg rect:nth-of-type(5) { animation-delay: .45s; }
-    .hero-visual svg rect:nth-of-type(6) { animation-delay: .55s; }
-    @keyframes growBar { from { transform: scaleY(0); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
-    .hero-visual-caption { margin: 10px 2px 0; font-size: .82rem; color: #dce8f1; text-align: center; }
-    .hero-visual-caption strong { color: white; }
-    @media (max-width: 760px) { .home-hero-grid { grid-template-columns: 1fr; } .home-features { grid-template-columns: repeat(2, 1fr); } }
