@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Datenschutz · Lernwerk GmbH · KI-Kurs</title>
+  <script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})();</script>
   <link rel="stylesheet" href="styles.css">
   <style>
     .topbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 20px; background: var(--blue-dark); color: white; }
@@ -13,13 +14,13 @@
     .topbar-links a { padding: 6px 13px; border-radius: 999px; font-size: .9rem; }
     .topbar-links a:hover { background: rgba(255,255,255,.12); }
     .dp { max-width: 820px; }
-    .dp h1 { color: var(--blue); margin: 0 0 4px; }
+    .dp h1 { color: var(--heading); margin: 0 0 4px; }
     .dp .sub { color: var(--muted); margin: 0 0 8px; }
-    .dp h2 { color: var(--blue); font-size: 1.12rem; margin: 24px 0 6px; }
+    .dp h2 { color: var(--heading); font-size: 1.12rem; margin: 24px 0 6px; }
     .dp p, .dp li { color: var(--ink); font-size: .96rem; line-height: 1.6; }
     .dp ul { padding-left: 20px; }
     .dp li { margin-bottom: 8px; }
-    .dp .highlight { background: var(--soft-blue); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 14px 0; }
+    .dp .highlight { background: var(--soft-blue); border-left: 4px solid var(--heading); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 14px 0; }
     .dp .note { color: var(--muted); font-size: .88rem; margin-top: 22px; border-top: 1px solid var(--line); padding-top: 14px; }
     .dp .updated { color: var(--muted); font-size: .85rem; }
   </style>
@@ -27,11 +28,17 @@
 <body>
   <nav class="topbar">
     <a href="index.html" class="topbar-home">&larr; Kursübersicht</a>
-    <div class="topbar-links">
-      <a href="kapitel-1.html">Kap. 1</a>
-      <a href="kapitel-2.html">Kap. 2</a>
-      <a href="kapitel-3.html">Kap. 3</a>
-      <a href="kapitel-4.html">Kap. 4</a>
+    <div class="topbar-right">
+      <div class="topbar-links">
+        <a href="kapitel-1.html">Kap. 1</a>
+        <a href="kapitel-2.html">Kap. 2</a>
+        <a href="kapitel-3.html">Kap. 3</a>
+        <a href="kapitel-4.html">Kap. 4</a>
+      </div>
+      <button type="button" class="theme-toggle" onclick="toggleTheme()" aria-label="Hell-/Dunkelmodus umschalten" title="Hell-/Dunkelmodus umschalten">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
     </div>
   </nav>
 
@@ -73,5 +80,6 @@
     <p class="updated">Stand: September 2026</p>
   </main>
   <footer>Interaktive Lernsequenz · Lernwerk GmbH · KI-Kurs · <a href="index.html" style="color:inherit">Startseite</a></footer>
+  <script src="app.js"></script>
 </body>
 </html>

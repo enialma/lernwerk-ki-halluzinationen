@@ -508,3 +508,60 @@ const k1Items = [
 
     if(document.getElementById('c4k1Quiz')){ c4renderK1(); c4loadSaved(); c4attachChats(); }
 
+
+
+/* --- Hell-/Dunkelmodus umschalten (auch für Seiten, die dieses Skript laden) --- */
+function toggleTheme() {
+  var root = document.documentElement;
+  var current = root.getAttribute('data-theme');
+  var isDark = current ? current === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  var next = isDark ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  try { localStorage.setItem('theme', next); } catch (e) {}
+}
+
+/* --- Sanftes Einblenden je Kompetenzstufe + aktive Stufe in der Navigation hervorheben --- */
+(function () {
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav a[href^="#"]'));
+  if (!sections.length || typeof IntersectionObserver === 'undefined') return;
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    sections.forEach(function (s) { s.classList.add('reveal'); });
+  }
+
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  sections.forEach(function (s) { revealObserver.observe(s); });
+
+  if (navLinks.length) {
+    var linkFor = {};
+    navLinks.forEach(function (a) { linkFor[a.getAttribute('href').slice(1)] = a; });
+
+    var spyObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = linkFor[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(function (a) { a.classList.remove('current'); });
+          link.classList.add('current');
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '-15% 0px -55% 0px' });
+    sections.forEach(function (s) { if (linkFor[s.id]) spyObserver.observe(s); });
+
+    navLinks.forEach(function (a) {
+      a.addEventListener('click', function () {
+        navLinks.forEach(function (x) { x.classList.remove('current'); });
+        a.classList.add('current');
+      });
+    });
+  }
+})();
